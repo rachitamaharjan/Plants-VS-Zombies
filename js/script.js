@@ -65,11 +65,11 @@ canvas.addEventListener('click', function(e){
     var posx = mouseActivity.x - (mouseActivity.x % gridSize);
     var posy = mouseActivity.y - (mouseActivity.y % gridSize);
     var sunValue = 0;
-    // for (i = 0; i < plants.length; i++){
-    //     if(!(plants[i].x == posx && plants[i].y == posy)){
-    //         return
-    //     }
-    // }
+    for (i = 0; i < plants.length; i++){
+        if((plants[i].x == posx && plants[i].y == posy)){
+            return
+        }
+    }
     if (TotalsunValue >= sunValue){
         plants.push(new Plant(posx, posy))
         TotalsunValue = TotalsunValue - sunValue
