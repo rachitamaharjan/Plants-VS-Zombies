@@ -2,6 +2,10 @@
 // var range = 5
 // var baseX = 0
 // var mainContainer = document.getElementsByClassName('main-container')
+var stoppointX = 170
+var startpointX = 215
+var endpointX = 730
+var endpointY = 480
 
 
 function drawGrid(){
@@ -23,9 +27,12 @@ function drawZombie(){
         // console.log('draw plant')
         zombies[i].draw()
         zombies[i].change()
+        if (zombies[i].x < stoppointX){
+            player.playing = false
+        }
     }
     if(count % 300 == 0){
-        zombies.push(new Zombie(Math.floor(Math.random() * 5) * gridSize))
+        zombies.push(new Zombie(Math.floor(Math.random() * 5) * gridSize + gridSize))
     }
 }
 

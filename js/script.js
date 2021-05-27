@@ -6,6 +6,9 @@ var mouseActivity = {
     width : 0.1
 }
 
+var player = {
+    playing : true
+}
 
 // var bird = {
 //     goingUp : false,
@@ -146,8 +149,8 @@ function eachGrid(x, y){
 
 
 (function createGrid(){
-    for(i = gridSize; i < canvas.height; i += gridSize){
-        for(j = 0; j < canvas.width; j += gridSize){
+    for(i = gridSize; i < endpointY; i += gridSize){
+        for(j = startpointX; j < endpointX; j += gridSize){
         // for(j = gridSize * 2; j < canvas.width; j += gridSize){
             // console.log('in')
             gameBoard.push(new eachGrid(j, i))
@@ -169,7 +172,10 @@ function Plant(x, y){
     this.imgwidth = 73
 
     this.draw = function(){
-        ctx.drawImage(peashooter,this.frameStart * this.imgwidth, 0, this.imgwidth, this.imgheight, this.x + (this.width / 5), this.y + (this.height / 5), this.width / 1.5, this.height / 1.5)
+        // if(this.x > 210){
+            if(this.x > startpointX && this.x < endpointX && this.y >= gridSize && this.y < endpointY){
+            ctx.drawImage(peashooter,this.frameStart * this.imgwidth, 0, this.imgwidth, this.imgheight, this.x - (this.width / 5), this.y + (this.height / 5), this.width / 1.5, this.height / 1.5)
+        }
     }
 
     this.change = function(){
@@ -224,7 +230,7 @@ function Zombie(y){
 
     // var blockerPipes = document.getElementsByClassName('blocker-pipes')
     
-    // if (player.playing){
+    if (player.playing){
         ctx.clearRect(0,0,canvas.width, canvas.height)
         ctx.fillStyle = 'gray';
         ctx.fillRect(0,0,controlPanel.width,controlPanel.height)
@@ -262,5 +268,5 @@ function Zombie(y){
     //         pointsBefore = player.score
     //     }
 
-    // }
+    }
 })()
