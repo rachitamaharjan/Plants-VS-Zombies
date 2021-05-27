@@ -4,6 +4,32 @@
 // var mainContainer = document.getElementsByClassName('main-container')
 
 
+function drawGrid(){
+    for(i = 0; i < gameBoard.length; i++){
+        gameBoard[i].draw()
+    }
+}
+
+function drawPlant(){
+    for(i = 0; i < plants.length; i++){
+        // console.log('draw plant')
+        plants[i].draw()
+        plants[i].change()
+    }
+}
+
+function checkCollision(one, two){
+    // one = val1.getBoundingClientRect()
+    // two = val2.getBoundingClientRect()
+    // console.log('l',one,two)
+    
+    if (!((one.x > two.x + two.width) || (one.y > two.y + two.height) || (one.x + one.width < two.x) || (one.y + one.height < two.y))){
+        // console.log('this',one.x,one.y,'mouse',two.x,two.y)
+        return 1
+    }
+    else return 0
+}
+
 // function createPipeRow(classname){
 
 //     for(i = 0; i < 2; i++){

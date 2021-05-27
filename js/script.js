@@ -1,37 +1,51 @@
 var mouseActivity = {
     MouseHover : false,
-    x : 1, 
-    y : 1,
+    x : undefined, 
+    y : undefined,
     height : 0.1,
     width : 0.1
 }
+
 
 // var bird = {
 //     goingUp : false,
 //     goingDown : false
 // }
+var count = 0
 var canvas = document.getElementById('game')
 var containerPos = (document.getElementsByClassName('main-container-wrapper'))[0]
 var ctx = canvas.getContext('2d')
-
-console.log('k', containerPos)
+canvas.width = 1000;
+canvas.height = 500;
+// console.log('k', containerPos)
 console.log('k', canvas.getBoundingClientRect())
-var gridSize = 24;
+var gridSize = 80;
 var controlPanel = {
     height : gridSize,
     width : canvas.width
 }
 var gameBoard = [];
+var plants = [];
+var plantVariety = [];
+var peashooter = new Image()
+peashooter.src = "./assets/peashooter/peashooter_idle.png"
+console.log('k',peashooter)
+plantVariety.push(peashooter)
+var TotalsunValue = 100;
+var zombies = [];
 
-// var mousemove = document.addEventListener('mousemove',function(e){
+
+// event listeners
 canvas.addEventListener('mousemove',function(e){
     e.preventDefault();
     mouseActivity[e.MouseHover] = true
-    // mouseActivity.x = e.clientX
-    // mouseActivity.y = e.clientY
-    mouseActivity.x = e.x - containerPos.getBoundingClientRect().left - 30
-    mouseActivity.y = e.y - containerPos.getBoundingClientRect().top - 30
-    console.log('move',e.clientX,e.clientY)
+    // mouseActivity.x = e.pageX
+    // mouseActivity.y = e.pageY
+    mouseActivity.x = e.pageX - canvas.getBoundingClientRect().left 
+    mouseActivity.y = e.pageY - canvas.getBoundingClientRect().top 
+    // mouseActivity.x = e.x - canvas.getBoundingClientRect().left - gridSize*2
+    // mouseActivity.y = e.y - canvas.getBoundingClientRect().top - gridSize*2 
+    console.log('move',e.x, e.y, mouseActivity.x,mouseActivity.y)
     // console.log(e.key)
 })
 
@@ -41,9 +55,27 @@ canvas.addEventListener('mouseleave',function(e){
     mouseActivity[e.MouseHover] = false
     mouseActivity.x = undefined
     mouseActivity.y = undefined
-    console.log('not')
+    // console.log('not')
 
     // console.log(e.key)
+})
+
+canvas.addEventListener('click', function(e){
+    // console.log('clock')
+    var posx = mouseActivity.x - (mouseActivity.x % gridSize);
+    var posy = mouseActivity.y - (mouseActivity.y % gridSize);
+    var sunValue = 0;
+    // for (i = 0; i < plants.length; i++){
+    //     if(!(plants[i].x == posx && plants[i].y == posy)){
+    //         return
+    //     }
+    // }
+    if (TotalsunValue >= sunValue){
+        plants.push(new Plant(posx, posy))
+        TotalsunValue = TotalsunValue - sunValue
+        // console.log('okk',posx,posy,e.x,e.y)
+    }
+
 })
 
 // var player = { playing: false, score: 0, speed: 3, gravity: 0.5, velocity: 0, upward: -10, highScore: getHighScore()}
@@ -99,9 +131,12 @@ function eachGrid(x, y){
 
     this.draw = function(){
         if(mouseActivity.x && mouseActivity.y && checkCollision(this, mouseActivity)){
-            console.log('yes')
-            ctx.strokeStyle = 'gray';
+            // console.log('yes')
+            ctx.strokeStyle = 'green';
             ctx.strokeRect(this.x, this.y, this.width, this.height);
+            // ctx.fillStyle = 'green';
+            // ctx.fillRect(this.x, this.y, this.width, this.height);
+            console.log('draw',this.x,this.y)
         }
     }
 }
@@ -110,33 +145,45 @@ function eachGrid(x, y){
 
 (function createGrid(){
     for(i = gridSize; i < canvas.height; i += gridSize){
-        // for(j = 0; j < canvas.width; j += gridSize){
-        for(j = gridSize * 2.6; j < canvas.width; j += gridSize){
+        for(j = 0; j < canvas.width; j += gridSize){
+        // for(j = gridSize * 2; j < canvas.width; j += gridSize){
             // console.log('in')
             gameBoard.push(new eachGrid(j, i))
         }
     }
 })()
 
-function drawGrid(){
-    for(i = 0; i < gameBoard.length; i++){
-        gameBoard[i].draw()
+function Plant(x, y){
+    this.height = gridSize;
+    this.width = gridSize;
+    this.x = x;
+    this.y = y;
+    this.health = 30;
+    this.attack = false;
+    this.type = plantVariety[0]
+    this.frameStart = 0
+    this.frameEnd = 13
+    this.imgheight = 73
+    this.imgwidth = 73
+
+    this.draw = function(){
+        ctx.drawImage(peashooter,this.frameStart * this.imgwidth, 0, this.imgwidth, this.imgheight, this.x, this.y, this.width, this.height)
+    }
+
+    this.change = function(){
+        if(count % 8 == 0){
+            if(this.frameStart < this.frameEnd - 1){
+                this.frameStart = this.frameStart + 1
+            }
+            else{
+                this.frameStart = 1
+            }
+        }
     }
 }
 
 
 
-function checkCollision(one, two){
-    // one = val1.getBoundingClientRect()
-    // two = val2.getBoundingClientRect()
-    // console.log('l',one,two)
-    
-    if (!((one.x > two.x + two.width) || (one.y > two.y + two.height) || (one.x + one.width < two.x) || (one.y + one.height < two.y))){
-        console.log('this',one.x,one.y,'mouse',two.x,two.y)
-        return 1
-    }
-    else return 0
-}
 
 (function loop(){
     // console.log('ok')
@@ -145,9 +192,11 @@ function checkCollision(one, two){
     
     // if (player.playing){
         ctx.clearRect(0,0,canvas.width, canvas.height)
-        ctx.fillStyle = 'blue';
+        ctx.fillStyle = 'gray';
         ctx.fillRect(0,0,controlPanel.width,controlPanel.height)
         drawGrid()
+        drawPlant()
+        count ++
         window.requestAnimationFrame(loop);
     //     moveBase()
     //     birdGravity()
