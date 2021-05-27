@@ -22,7 +22,12 @@ function drawPlant(){
         for(j = 0; j < zombies.length; j++){
             if (checkCollision(plants[i], zombies[j])){
                 zombies[j].velocity = 0
-                plants[i].health -= 1
+                plants[i].health -= 0.1
+            }
+            if(plants[i] && plants[i].health <= 0){
+                plants.splice(i, 1)
+                i--
+                zombies[j].velocity = 0.5
             }
         }
     }
