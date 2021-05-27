@@ -169,7 +169,7 @@ function Plant(x, y){
     this.imgwidth = 73
 
     this.draw = function(){
-        ctx.drawImage(peashooter,this.frameStart * this.imgwidth, 0, this.imgwidth, this.imgheight, this.x, this.y, this.width, this.height)
+        ctx.drawImage(peashooter,this.frameStart * this.imgwidth, 0, this.imgwidth, this.imgheight, this.x + (this.width / 5), this.y + (this.height / 5), this.width / 1.5, this.height / 1.5)
     }
 
     this.change = function(){
@@ -187,8 +187,8 @@ function Plant(x, y){
 function Zombie(y){
     // this.height = gridSize ;
     // this.width = gridSize ;
-    this.height = gridSize * 2;
-    this.width = gridSize * 2;
+    this.height = gridSize;
+    this.width = gridSize;
     this.x = canvas.width;
     this.y = y;
     this.health = 30;
@@ -200,7 +200,7 @@ function Zombie(y){
     this.imgwidth = 168
 
     this.draw = function(){
-        ctx.drawImage(zombie_normal,this.frameStart * this.imgwidth, 0, this.imgwidth, this.imgheight, this.x, this.y, this.width, this.height)
+        ctx.drawImage(zombie_normal,this.frameStart * this.imgwidth, 0, this.imgwidth, this.imgheight, this.x - (this.width / 2), this.y - (this.height / 2), this.width * 1.5, this.height * 1.5)
     }
 
     this.change = function(){

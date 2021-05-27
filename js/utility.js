@@ -24,8 +24,8 @@ function drawZombie(){
         zombies[i].draw()
         zombies[i].change()
     }
-    if(count % 50 == 0){
-        zombies.push(new Zombie(Math.floor(Math.random() * 5 + 1 ) * gridSize))
+    if(count % 300 == 0){
+        zombies.push(new Zombie(Math.floor(Math.random() * 5) * gridSize))
     }
 }
 
