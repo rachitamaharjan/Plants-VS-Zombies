@@ -7,7 +7,8 @@ var mouseActivity = {
 }
 
 var player = {
-    playing : true
+    playing : true,
+    endgame : false,
 }
 
 // var bird = {
@@ -174,7 +175,9 @@ function Plant(x, y){
     this.draw = function(){
         // if(this.x > 210){
             if(this.x > startpointX && this.x < endpointX && this.y >= gridSize && this.y < endpointY){
-            ctx.drawImage(peashooter,this.frameStart * this.imgwidth, 0, this.imgwidth, this.imgheight, this.x - (this.width / 5), this.y + (this.height / 5), this.width / 1.5, this.height / 1.5)
+            // ctx.fillStyle = 'black'
+            // ctx.fillRect(this.x, this.y, this.width, this.height)
+            ctx.drawImage(peashooter,this.frameStart * this.imgwidth, 0, this.imgwidth, this.imgheight, this.x , this.y + (this.height / 5), this.width / 1.5, this.height / 1.5)
         }
     }
 
@@ -204,13 +207,16 @@ function Zombie(y){
     this.frameEnd = 21
     this.imgheight = 146
     this.imgwidth = 168
+    this.velocity = 0.5
 
     this.draw = function(){
-        ctx.drawImage(zombie_normal,this.frameStart * this.imgwidth, 0, this.imgwidth, this.imgheight, this.x - (this.width / 2), this.y - (this.height / 2), this.width * 1.5, this.height * 1.5)
+        // ctx.fillStyle = 'black'
+        // ctx.fillRect(this.x, this.y, this.width, this.height)
+        ctx.drawImage(zombie_normal,this.frameStart * this.imgwidth, 0, this.imgwidth, this.imgheight, this.x - (this.width / 1.5), this.y - (this.height / 2), this.width * 1.5, this.height * 1.5)
     }
 
     this.change = function(){
-        this.x = this.x - 0.5
+            this.x = this.x - this.velocity
         if(count % 22 == 0){
             if(this.frameStart < this.frameEnd){
                 this.frameStart = this.frameStart + 1

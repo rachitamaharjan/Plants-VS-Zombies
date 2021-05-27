@@ -19,6 +19,12 @@ function drawPlant(){
         // console.log('draw plant')
         plants[i].draw()
         plants[i].change()
+        for(j = 0; j < zombies.length; j++){
+            if (checkCollision(plants[i], zombies[j])){
+                zombies[j].velocity = 0
+                plants[i].health -= 1
+            }
+        }
     }
 }
 
@@ -29,6 +35,7 @@ function drawZombie(){
         zombies[i].change()
         if (zombies[i].x < stoppointX){
             player.playing = false
+            player.endgame = true
         }
     }
     if(count % 300 == 0){
@@ -41,7 +48,7 @@ function checkCollision(one, two){
     // two = val2.getBoundingClientRect()
     // console.log('l',one,two)
     
-    if (!((one.x > two.x + two.width) || (one.y > two.y + two.height) || (one.x + one.width < two.x) || (one.y + one.height < two.y))){
+    if (!((one.x >= two.x + two.width) || (one.y >= two.y + two.height) || (one.x + one.width <= two.x) || (one.y + one.height <= two.y))){
         // console.log('this',one.x,one.y,'mouse',two.x,two.y)
         return 1
     }
