@@ -29,10 +29,12 @@ var plants = [];
 var plantVariety = [];
 var peashooter = new Image()
 peashooter.src = "./assets/peashooter/peashooter_idle.png"
-console.log('k',peashooter)
+// console.log('k',peashooter)
 plantVariety.push(peashooter)
 var TotalsunValue = 100;
 var zombies = [];
+var zombie_normal = new Image()
+zombie_normal.src = "./assets/zombie_normal/zombie.png"
 
 
 // event listeners
@@ -182,6 +184,38 @@ function Plant(x, y){
     }
 }
 
+function Zombie(y){
+    // this.height = gridSize ;
+    // this.width = gridSize ;
+    this.height = gridSize * 2;
+    this.width = gridSize * 2;
+    this.x = canvas.width;
+    this.y = y;
+    this.health = 30;
+    this.attack = false;
+    this.type = plantVariety[0]
+    this.frameStart = 0
+    this.frameEnd = 21
+    this.imgheight = 146
+    this.imgwidth = 168
+
+    this.draw = function(){
+        ctx.drawImage(zombie_normal,this.frameStart * this.imgwidth, 0, this.imgwidth, this.imgheight, this.x, this.y, this.width, this.height)
+    }
+
+    this.change = function(){
+        this.x = this.x - 0.5
+        if(count % 22 == 0){
+            if(this.frameStart < this.frameEnd){
+                this.frameStart = this.frameStart + 1
+            }
+            else{
+                this.frameStart = 0
+            }
+        }
+    }
+}
+
 
 
 
@@ -196,6 +230,7 @@ function Plant(x, y){
         ctx.fillRect(0,0,controlPanel.width,controlPanel.height)
         drawGrid()
         drawPlant()
+        drawZombie()
         count ++
         window.requestAnimationFrame(loop);
     //     moveBase()

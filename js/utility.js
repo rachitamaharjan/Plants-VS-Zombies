@@ -18,6 +18,17 @@ function drawPlant(){
     }
 }
 
+function drawZombie(){
+    for(i = 0; i < zombies.length; i++){
+        // console.log('draw plant')
+        zombies[i].draw()
+        zombies[i].change()
+    }
+    if(count % 50 == 0){
+        zombies.push(new Zombie(Math.floor(Math.random() * 5 + 1 ) * gridSize))
+    }
+}
+
 function checkCollision(one, two){
     // one = val1.getBoundingClientRect()
     // two = val2.getBoundingClientRect()
