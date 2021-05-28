@@ -74,6 +74,10 @@ var peas = []
 var pea = new Image()
 pea.src = "./assets/pea.png"
 
+// var snowPeas = []
+var snowPea = new Image()
+snowPea.src = "./assets/snowPea.png"
+
 var TotalsunValue = 500;
 var suns = []
 var sun = new Image()
@@ -348,7 +352,7 @@ function Plant(x, y){
         }
         if(this.plantCount % 100 == 0){
             if(this.type != 0){
-                peas.push(new Pea(this.x + (gridSize / 4), this.y + (gridSize / 6)))
+                peas.push(new Pea(this.type, this.x + (gridSize / 4), this.y + (gridSize / 6)))
             }
         }
     }
@@ -443,16 +447,24 @@ function Zombie(y){
     }
 }
 
-function Pea(x, y){
+function Pea(type, x, y){
     this.width = 50;
     this.height = 28;
     this.x = x;
     this.y = y;
     this.velocity = 5
+    if(type == 1){
+        this.peaType = pea
+        this.power = 5
+    }
+    else if(type == 2){
+        this.peaType = snowPea
+        this.power = 7
+    }
     // this.attack = true
 
     this.draw = function(){
-            ctx.drawImage(pea,this.x , this.y, this.width, this.height)
+        ctx.drawImage(this.peaType,this.x , this.y, this.width, this.height)
     }
 
     this.change = function(){

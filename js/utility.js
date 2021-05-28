@@ -45,7 +45,7 @@ function endGame(){
 function drawZombie(){
     for(i = 0; i < zombies.length; i++){
         // console.log('draw plant')
-        if(zombies[i].health < 7){
+        if(zombies[i].health <= 7){
             // if(zombies[i].health <= 0){
             //     zombies[i].dieFrameStart += 43
             //     zombies[i].dieFrameEnd = 52
@@ -88,7 +88,7 @@ function drawPea(){
 
         for(j = 0; j < zombies.length; j++){
             if (peas[i] && checkCollision(peas[i], zombies[j])){
-                zombies[j].health -= 5
+                zombies[j].health -= peas[i].power
                 peas.splice(i, 1)
                 i --
             }
