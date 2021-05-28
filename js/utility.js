@@ -42,6 +42,10 @@ function drawZombie(){
             player.playing = false
             player.endgame = true
         }
+        if(zombies[i] && zombies[i].health <= 0){
+            zombies.splice(i, 1)
+            i--
+        }
     }
     if(count % 300 == 0){
         zombies.push(new Zombie(Math.floor(Math.random() * 5) * gridSize + gridSize))
@@ -54,11 +58,17 @@ function drawPea(){
         peas[i].draw()
         peas[i].change()
 
+        for(j = 0; j < zombies.length; j++){
+            if (peas[i] && checkCollision(peas[i], zombies[j])){
+                zombies[i].health -= 6
+                peas.splice(i, 1)
+                i --
+            }
+        }
         if (peas[i] && peas[i].x > canvas.width - gridSize){
             peas.splice(i, 1)
             i --
         }
-        console.log('peas', peas.length)
     }
     // if(count % 300 == 0){
     //     zombies.push(new Zombie(Math.floor(Math.random() * 5) * gridSize + gridSize))
