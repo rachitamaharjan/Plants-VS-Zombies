@@ -32,14 +32,24 @@ plantVariety.push(peashooter)
 var zombies = [];
 var totalZombies = 10
 var zombieCount = 1
-var zombie_normal = new Image()
-zombie_normal.src = "./assets/zombie_normal/zombie1.png"
+var zombieVariety = []
+
+// zombie normal
 var zombie_head = new Image()
 zombie_head.src = "./assets/zombie_normal/zombie_head.png"
+
+var zombie_normal = new Image()
+zombie_normal.src = "./assets/zombie_normal/zombie1.png"
+zombieVariety.push(zombie_normal)
+zombie_bucketHead = new Image()
+zombie_bucketHead.src = "./assets/bucketHeadZombie/bucketHeadZombie.png"
+zombieVariety.push(zombie_bucketHead)
+
 var zombiesWon = new Image()
 zombiesWon.src = "./assets/zombiesWin/ZombiesWon.png"
 var brainPlate = new Image()
 brainPlate.src = "./assets/zombiesWin/BrainOnAPlate.png"
+
 
 var peas = []
 var pea = new Image()
@@ -222,15 +232,31 @@ function Zombie(y){
     this.width = gridSize;
     this.x = canvas.width;
     this.y = y;
-    this.health = 30;
     this.attack = false;
-    this.type = plantVariety[0]
-    this.frameStart = 0
-    this.frameEnd = 21
-    this.attackFrameStart = 23
-    this.attackFrameEnd = 43
-    this.dieFrameStart = 44
-    this.dieFrameEnd = 52
+    this.type = zombieVariety[Math.floor(Math.random() * zombieVariety.length)]
+    console.log('choose',this.type, zombieVariety[1], Math.floor(Math.random() * zombieVariety.length))
+    if (this.type == zombieVariety[0]){
+        this.health = 30;
+        this.frameStart = 0
+        this.frameEnd = 21
+        this.attackFrameStart = 23
+        this.attackFrameConst = 23
+        this.attackFrameEnd = 43
+        this.dieFrameStart = 44
+        this.dieFrameConst = 44
+        this.dieFrameEnd = 52
+    }
+    if (this.type == zombieVariety[1]){
+        this.health = 50;
+        this.frameStart = 0
+        this.frameEnd = 14
+        this.attackFrameStart = 15
+        this.attackFrameConst = 15
+        this.attackFrameEnd = 25
+        this.dieFrameStart = 26
+        this.dieFrameConst = 26
+        this.dieFrameEnd = 35
+    }
     this.imgheight = 146
     this.imgwidth = 168
     this.velocity = 0.5
@@ -242,14 +268,14 @@ function Zombie(y){
         // ctx.fillStyle = 'black'
         // ctx.fillRect(this.x, this.y, this.width, this.height)
         if(this.dying == true){
-            ctx.drawImage(zombie_normal,this.dieFrameStart * this.imgwidth, 0, this.imgwidth, this.imgheight, this.x - (this.width / 1.5), this.y - (this.height / 2), this.width * 1.5, this.height * 1.5)
-            ctx.drawImage(zombie_head,(this.dieFrameStart - 44) * 150, 0, 150, 186, this.x - (this.width / 1.5), this.y - (this.height / 2), this.width * 1.5, this.height * 1.5)
+            ctx.drawImage(this.type,this.dieFrameStart * this.imgwidth, 0, this.imgwidth, this.imgheight, this.x - (this.width / 1.5), this.y - (this.height / 2), this.width * 1.5, this.height * 1.5)
+            ctx.drawImage(zombie_head,(this.dieFrameStart - this.dieFrameConst) * 150, 0, 150, 186, this.x - (this.width / 1.5), this.y - (this.height / 2), this.width * 1.5, this.height * 1.5)
         }
         else if(this.attacking == true){
-            ctx.drawImage(zombie_normal,this.attackFrameStart * this.imgwidth, 0, this.imgwidth, this.imgheight, this.x - (this.width / 1.5), this.y - (this.height / 2), this.width * 1.5, this.height * 1.5)
+            ctx.drawImage(this.type,this.attackFrameStart * this.imgwidth, 0, this.imgwidth, this.imgheight, this.x - (this.width / 1.5), this.y - (this.height / 2), this.width * 1.5, this.height * 1.5)
         }
         else{
-            ctx.drawImage(zombie_normal,this.frameStart * this.imgwidth, 0, this.imgwidth, this.imgheight, this.x - (this.width / 1.5), this.y - (this.height / 2), this.width * 1.5, this.height * 1.5)
+            ctx.drawImage(this.type,this.frameStart * this.imgwidth, 0, this.imgwidth, this.imgheight, this.x - (this.width / 1.5), this.y - (this.height / 2), this.width * 1.5, this.height * 1.5)
         }
     }
 
@@ -261,7 +287,7 @@ function Zombie(y){
                         this.dieFrameStart = this.dieFrameStart + 1
                     }
                     else{
-                        this.dieFrameStart = 52
+                        this.dieFrameStart = this.dieFrameEnd
                     }
                 }
                 this.velocity = 0
@@ -272,7 +298,7 @@ function Zombie(y){
                         this.attackFrameStart = this.attackFrameStart + 1
                     }
                     else{
-                        this.attackFrameStart = 24
+                        this.attackFrameStart = this.attackFrameConst
                     }
                 }
             }
