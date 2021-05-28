@@ -124,7 +124,7 @@ function drawSun(){
         // }
     }
     if(count % 1000 == 0){
-        suns.push(new Sun(Math.floor(Math.random() * 5) * gridSize + startpointX))
+        suns.push(new Sun(Math.floor(Math.random() * 5) * gridSize + startpointX, 0))
     }
 }
 

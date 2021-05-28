@@ -350,8 +350,13 @@ function Plant(x, y){
                 this.frameStart = 1
             }
         }
-        if(this.plantCount % 100 == 0){
-            if(this.type != 0){
+        if(this.type == 0){
+            if(this.plantCount % 800 == 0){
+                suns.push(new Sun(this.x, this.y))
+            }
+        }
+        else{
+            if(this.plantCount % 100 == 0){
                 peas.push(new Pea(this.type, this.x + (gridSize / 4), this.y + (gridSize / 6)))
             }
         }
@@ -472,11 +477,11 @@ function Pea(type, x, y){
     }
 }
 
-function Sun(x){
+function Sun(x, y){
     this.height = gridSize;
     this.width = gridSize;
     this.x = x;
-    this.y = 0;
+    this.y = y;
     this.frameStart = 0
     this.frameEnd = 21
     this.imgheight = 80
