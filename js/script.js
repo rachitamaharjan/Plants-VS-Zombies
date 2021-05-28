@@ -3,7 +3,8 @@ var mouseActivity = {
     x : undefined, 
     y : undefined,
     height : 0.1,
-    width : 0.1
+    width : 0.1,
+    clicked : false
 }
 
 var player = {
@@ -25,9 +26,27 @@ var controlPanel = {
 var gameBoard = [];
 var plants = [];
 var plantVariety = [];
+var selectedPlant = undefined
+// peashooter
+var card_peashooter = new Image()
+card_peashooter.src = "./assets/cards/card_peashooter.png"
 var peashooter = new Image()
 peashooter.src = "./assets/peashooter/peashooter_idle.png"
 plantVariety.push(peashooter)
+
+// snowPeashooter
+var card_snowPeashooter = new Image()
+card_snowPeashooter.src = "./assets/cards/card_snowpea.png"
+var snowPeashooter = new Image()
+snowPeashooter.src = "./assets/snowPeashooter/snowPeashooter.png"
+plantVariety.push(snowPeashooter)
+
+// sunflower
+var card_sunflower = new Image()
+card_sunflower.src = "./assets/cards/card_sunflower.png"
+var sunflower = new Image()
+sunflower.src = "./assets/sunflower/sunflower.png"
+plantVariety.push(sunflower)
 
 var zombies = [];
 var totalZombies = 10
@@ -87,20 +106,38 @@ canvas.addEventListener('mouseleave',function(e){
 
     // console.log(e.key)
 })
+console.log('m',mouseActivity.clicked)
+canvas.addEventListener('mousedown',function(e){
+    mouseActivity.clicked = true
+    console.log('m',mouseActivity.clicked)
+})
+
+canvas.addEventListener('mouseup',function(e){
+    mouseActivity.clicked = false
+})
 
 canvas.addEventListener('click', function(e){
     // console.log('clock')
     var posx = mouseActivity.x - (mouseActivity.x % gridSize);
     var posy = mouseActivity.y - (mouseActivity.y % gridSize);
-    var sunValue = 100;
+    var sunVal = undefined;
+    if(selectedPlant == 0){
+        sunVal = sunflowerCard.sunValue
+    }
+    if(selectedPlant == 1){
+        sunVal = peashooterCard.sunValue
+    }
+    if(selectedPlant == 2){
+        sunVal = snowPeashooterCard.sunValue
+    }
     for (i = 0; i < plants.length; i++){
         if((plants[i].x == posx && plants[i].y == posy)){
             return
         }
     }
-    if (TotalsunValue >= sunValue){
+    if (TotalsunValue >= sunVal){
         plants.push(new Plant(posx, posy))
-        TotalsunValue = TotalsunValue - sunValue
+        TotalsunValue = TotalsunValue - sunVal
         // console.log('okk',posx,posy,e.x,e.y)
     }
 
@@ -189,6 +226,77 @@ function drawBoard(){
     ctx.fillText(TotalsunValue, 47, 88)
 }
 
+var sunflowerCard = {
+    x : 10,
+    y : 105,
+    height : 90,
+    width : 65,
+    fill : 'green',
+    sunValue : 50
+}
+
+
+var peashooterCard = {
+    x : 10,
+    y : 205,
+    height : 90,
+    width : 65,
+    fill : 'green',
+    sunValue : 100
+}
+
+var snowPeashooterCard = {
+    x : 10,
+    y : 305,
+    height : 90,
+    width : 65,
+    fill : 'green',
+    sunValue : 175
+}
+
+function plantSelecter(){
+    if(checkCollision(sunflowerCard, mouseActivity) && mouseActivity.clicked ){
+        selectedPlant = 0
+    }
+    if(checkCollision(peashooterCard, mouseActivity) && mouseActivity.clicked ){
+        selectedPlant = 1
+    }
+    if(checkCollision(snowPeashooterCard, mouseActivity) && mouseActivity.clicked ){
+        selectedPlant = 2
+    }
+    if(selectedPlant == 0){
+        sunflowerCard.fill = 'black'
+        peashooterCard.fill = 'green'
+        snowPeashooterCard.fill = 'green'
+    }
+    else if(selectedPlant == 1){
+        peashooterCard.fill = 'black'
+        sunflowerCard.fill = 'green'
+        snowPeashooterCard.fill = 'green'
+    }
+    else if(selectedPlant == 2){
+        snowPeashooterCard.fill = 'black'
+        peashooterCard.fill = 'green'
+        sunflowerCard.fill = 'green'
+    }
+    else{
+        peashooterCard.fill = 'green'
+        snowPeashooterCard.fill = 'green'
+        sunflowerCard.fill = 'green'
+    }
+    ctx.lineWidth = 2
+    ctx.fillStyle = peashooterCard.fill
+    ctx.fillRect(peashooterCard.x, peashooterCard.y, peashooterCard.width + 5, peashooterCard.height + 5)
+    ctx.drawImage(card_peashooter,peashooterCard.x + 2.5, peashooterCard.y + 2.5, peashooterCard.width, peashooterCard.height)
+    ctx.fillStyle = snowPeashooterCard.fill
+    ctx.fillRect(snowPeashooterCard.x, snowPeashooterCard.y, snowPeashooterCard.width + 5, snowPeashooterCard.height + 5)
+    ctx.drawImage(card_snowPeashooter,snowPeashooterCard.x + 2.5, snowPeashooterCard.y + 2.5, snowPeashooterCard.width, snowPeashooterCard.height)
+    ctx.fillStyle = sunflowerCard.fill
+    ctx.fillRect(sunflowerCard.x, sunflowerCard.y, sunflowerCard.width + 5, sunflowerCard.height + 5)
+    ctx.drawImage(card_sunflower,sunflowerCard.x + 2.5, sunflowerCard.y + 2.5, sunflowerCard.width, sunflowerCard.height)
+
+}
+
 function Plant(x, y){
     this.height = gridSize;
     this.width = gridSize;
@@ -196,18 +304,35 @@ function Plant(x, y){
     this.y = y;
     this.health = 30;
     this.attack = false;
-    this.type = plantVariety[0]
-    this.frameStart = 0
-    this.frameEnd = 13
-    this.imgheight = 73
-    this.imgwidth = 73
+    this.type = selectedPlant
     this.plantCount = 0
+    // this.type = plantVariety[0]
+    if(this.type == 0){
+        this.frameStart = 0
+        this.frameEnd = 17
+        this.imgheight = 74
+        this.imgwidth = 75
+    }
+    else{
+        this.frameStart = 0
+        this.frameEnd = 13
+        this.imgheight = 73
+        this.imgwidth = 73
+    }
 
     this.draw = function(){
-            if(this.x > startpointX && this.x < endpointX && this.y >= gridSize && this.y < endpointY){
+        if(this.x > startpointX && this.x < endpointX && this.y >= gridSize && this.y < endpointY){
+            if(this.type == 0){
             // ctx.fillStyle = 'black'
             // ctx.fillRect(this.x, this.y, this.width, this.height)
+            ctx.drawImage(sunflower,this.frameStart * this.imgwidth, 0, this.imgwidth, this.imgheight, this.x , this.y + (this.height / 5), this.width / 1.5, this.height / 1.5)
+            }
+            if(this.type == 1){
             ctx.drawImage(peashooter,this.frameStart * this.imgwidth, 0, this.imgwidth, this.imgheight, this.x , this.y + (this.height / 5), this.width / 1.5, this.height / 1.5)
+            }
+            else if(this.type == 2){
+            ctx.drawImage(snowPeashooter,this.frameStart * this.imgwidth, 0, this.imgwidth, this.imgheight, this.x , this.y + (this.height / 5), this.width / 1.5, this.height / 1.5)
+            }
         }
     }
 
@@ -222,7 +347,9 @@ function Plant(x, y){
             }
         }
         if(this.plantCount % 100 == 0){
-            peas.push(new Pea(this.x + (gridSize / 4), this.y + (gridSize / 6)))
+            if(this.type != 0){
+                peas.push(new Pea(this.x + (gridSize / 4), this.y + (gridSize / 6)))
+            }
         }
     }
 }
@@ -381,6 +508,7 @@ function Sun(x){
         ctx.clearRect(0,0,canvas.width, canvas.height)
         // ctx.fillStyle = 'gray';
         drawBoard()
+        plantSelecter()
         // ctx.fillRect(0,0,controlPanel.width,controlPanel.height)
         drawGrid()
         drawPlant()
