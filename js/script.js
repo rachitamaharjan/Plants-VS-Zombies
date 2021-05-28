@@ -40,6 +40,9 @@ var peas = []
 var pea = new Image()
 pea.src = "./assets/pea.png"
 
+var sunBoard = new Image()
+sunBoard.src = "./assets/sunboard.png"
+
 // event listeners
 canvas.addEventListener('mousemove',function(e){
     e.preventDefault();
@@ -69,7 +72,7 @@ canvas.addEventListener('click', function(e){
     // console.log('clock')
     var posx = mouseActivity.x - (mouseActivity.x % gridSize);
     var posy = mouseActivity.y - (mouseActivity.y % gridSize);
-    var sunValue = 0;
+    var sunValue = 10;
     for (i = 0; i < plants.length; i++){
         if((plants[i].x == posx && plants[i].y == posy)){
             return
@@ -157,6 +160,14 @@ function eachGrid(x, y){
         }
     }
 })()
+
+function drawBoard(){
+    ctx.drawImage(sunBoard, 10 , 10 , 76, 85)
+    ctx.fillStyle = 'black'
+    ctx.textAlign = "center"; 
+    ctx.font = '20px Arial bold'
+    ctx.fillText(TotalsunValue, 47, 88)
+}
 
 function Plant(x, y){
     this.height = gridSize;
@@ -275,20 +286,27 @@ function Pea(x, y){
     this.x = x;
     this.y = y;
     this.velocity = 5
+    // this.attack = true
 
     this.draw = function(){
         // ctx.fillStyle = 'green'
         // ctx.beginPath()
         // ctx.arc(this.x, this.y, this.width, 0, 2 * Math.PI)
         // ctx.fill()
-        ctx.drawImage(pea,this.x , this.y, this.width, this.height)
-        // ctx.fillRect(this.x, this.y, this.width, this.height)
+        // if(zombiePosition <= endpointX){
+            ctx.drawImage(pea,this.x , this.y, this.width, this.height)
+        // }
+            // ctx.fillRect(this.x, this.y, this.width, this.height)
         // ctx.drawImage(zombie_normal,this.frameStart * this.imgwidth, 0, this.imgwidth, this.imgheight, this.x - (this.width / 1.5), this.y - (this.height / 2), this.width * 1.5, this.height * 1.5)
     }
 
     this.change = function(){
+        // if(this.attack ==  true){
+            // if(zombiePosition <= 900){
+                this.x = this.x + this.velocity
+            // }
+        // }
         // console.log('m',this.x)
-        this.x = this.x + this.velocity
         // if(count % 22 == 0){
         //     if(this.frameStart < this.frameEnd){
         //         this.frameStart = this.frameStart + 1
@@ -310,8 +328,9 @@ function Pea(x, y){
     
     if (player.playing){
         ctx.clearRect(0,0,canvas.width, canvas.height)
-        ctx.fillStyle = 'gray';
-        ctx.fillRect(0,0,controlPanel.width,controlPanel.height)
+        // ctx.fillStyle = 'gray';
+        drawBoard()
+        // ctx.fillRect(0,0,controlPanel.width,controlPanel.height)
         drawGrid()
         drawPlant()
         drawPea()

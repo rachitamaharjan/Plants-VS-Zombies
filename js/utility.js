@@ -14,6 +14,7 @@ function drawGrid(){
     }
 }
 
+
 function drawPlant(){
     for(i = 0; i < plants.length; i++){
         // console.log('draw plant')
@@ -24,6 +25,7 @@ function drawPlant(){
                 zombies[j].attacking = true
                 zombies[j].velocity = 0
                 plants[i].health -= 0.1
+                // peas[i].attack = false
             }
             if(plants[i] && plants[i].health <= 0){
                 plants.splice(i, 1)
