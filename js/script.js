@@ -28,18 +28,24 @@ var plantVariety = [];
 var peashooter = new Image()
 peashooter.src = "./assets/peashooter/peashooter_idle.png"
 plantVariety.push(peashooter)
-var TotalsunValue = 100;
 
 var zombies = [];
+var totalZombies = 10
+var zombieCount = 1
 var zombie_normal = new Image()
 zombie_normal.src = "./assets/zombie_normal/zombie1.png"
 var zombie_head = new Image()
 zombie_head.src = "./assets/zombie_normal/zombie_head.png"
+var zombiesWon = new Image()
+zombiesWon.src = "./assets/zombiesWin/ZombiesWon.png"
+var brainPlate = new Image()
+brainPlate.src = "./assets/zombiesWin/BrainOnAPlate.png"
 
 var peas = []
 var pea = new Image()
 pea.src = "./assets/pea.png"
 
+var TotalsunValue = 500;
 var suns = []
 var sun = new Image()
 sun.src = "./assets/sun.png"
@@ -76,7 +82,7 @@ canvas.addEventListener('click', function(e){
     // console.log('clock')
     var posx = mouseActivity.x - (mouseActivity.x % gridSize);
     var posy = mouseActivity.y - (mouseActivity.y % gridSize);
-    var sunValue = 10;
+    var sunValue = 100;
     for (i = 0; i < plants.length; i++){
         if((plants[i].x == posx && plants[i].y == posy)){
             return
@@ -311,7 +317,7 @@ function Sun(x){
     this.imgheight = 80
     this.imgwidth = 80
     this.velocity = 1
-    this.value = 10
+    this.value = 25
 
     this.draw = function(){
         // ctx.fillStyle = 'black'
@@ -356,35 +362,21 @@ function Sun(x){
         drawZombie()
         drawSun()
         count ++
+        if(zombies.length == 0){
+            ctx.fillStyle = 'Black'
+            ctx.font = '40px Bold Arial'
+            ctx.fillText('ZOMBIES WERE DEFEATED! YOU WON', canvas.width / 2, canvas.height / 2)
+            player.playing = false
+        }
         window.requestAnimationFrame(loop);
-    //     moveBase()
-    //     birdGravity()
-    //     movePipes('pipe-row1',blockerPipes[0].x)
-    //     movePipes('pipe-row2',blockerPipes[1].x)
-    //     movePipes('pipe-row3',blockerPipes[2].x)
 
-    //     if(bird.goingUp == true){
-    //         document.getElementsByClassName('player-bird')[0].classList.add('bird-up')
-    //         document.getElementsByClassName('player-bird')[0].classList.remove('bird-down')
-    //         // document.getElementsByClassName('player-bird')[0].backgroundImage = '../assets/yellowbird-upflap.png'
-    //     }
-    //     else if(bird.goingDown == true){
-    //         document.getElementsByClassName('player-bird')[0].classList.add('bird-down')
-    //         document.getElementsByClassName('player-bird')[0].classList.remove('bird-up')
-    //         document.getElementsByClassName('player-bird')[0].backgroundImage = '../assets/yellowbird-downflap.png'
-    //     }
-    //     else{
-    //         document.getElementsByClassName('player-bird')[0].classList.add('bird-down')
-    //         document.getElementsByClassName('player-bird')[0].classList.remove('bird-up')
-    //         document.getElementsByClassName('player-bird')[0].classList.remove('bird-down')
-    //     }
-
-    //     score.innerHTML = 'Score: ' + player.score + '<br/> Speed: ' + player.speed
-
-    //     if (player.score >= pointsBefore + 20){
-    //         player.speed += 1
-    //         pointsBefore = player.score
-    //     }
-
+    }
+    if (player.endgame == true){
+        ctx.shadowOffsetX = 10;
+            ctx.shadowOffsetY = 10;
+            ctx.shadowColor = 'black';
+            ctx.shadowBlur = 50;
+        ctx.drawImage(brainPlate, canvas.width / 3 + 100, canvas.height / 3 + 220, 713 / 4, 287 / 4)
+            ctx.drawImage(zombiesWon, canvas.width / 3, canvas.height / 8, 564 / 1.5, 468 / 1.5)
     }
 })()

@@ -37,6 +37,11 @@ function drawPlant(){
     }
 }
 
+function endGame(){
+    // ctx.drawImage(brainPlate, canvas.width / 3 + 100, canvas.height / 3 + 220, 713 / 4, 287 / 4)
+    //         ctx.drawImage(zombiesWon, canvas.width / 3, canvas.height / 8, 564 / 1.5, 468 / 1.5)
+}
+
 function drawZombie(){
     for(i = 0; i < zombies.length; i++){
         // console.log('draw plant')
@@ -53,19 +58,25 @@ function drawZombie(){
         if (zombies[i].x < stoppointX){
             player.playing = false
             player.endgame = true
+            endGame()
         }
         // if(zombies[i].health < 7){
-        //     zombies[i].frameStart = 42
+        //     zombies[i].frameStart = 42 
         //     zombies[i].frameEnd = 51
         //     // zombies[i].spriteSpeed = 2
         // }
         if(zombies[i] && zombies[i].health <= 0){
                 zombies.splice(i, 1)
+                totalZombies -= 1
                 i--
         }
     }
-    if(count % 300 == 0){
-        zombies.push(new Zombie(Math.floor(Math.random() * 5) * gridSize + gridSize))
+    if(count % 500 == 0){
+        if(zombieCount < 10){
+            zombies.push(new Zombie(Math.floor(Math.random() * 5) * gridSize + gridSize))
+        }
+        zombieCount++
+        // totalZombies -= 1
     }
 }
 
