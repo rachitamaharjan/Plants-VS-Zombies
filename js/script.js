@@ -11,18 +11,12 @@ var player = {
     endgame : false,
 }
 
-// var bird = {
-//     goingUp : false,
-//     goingDown : false
-// }
 var count = 0
 var canvas = document.getElementById('game')
 var containerPos = (document.getElementsByClassName('main-container-wrapper'))[0]
 var ctx = canvas.getContext('2d')
 canvas.width = 1000;
 canvas.height = 500;
-// console.log('k', containerPos)
-console.log('k', canvas.getBoundingClientRect())
 var gridSize = 80;
 var controlPanel = {
     height : gridSize,
@@ -33,13 +27,16 @@ var plants = [];
 var plantVariety = [];
 var peashooter = new Image()
 peashooter.src = "./assets/peashooter/peashooter_idle.png"
-// console.log('k',peashooter)
 plantVariety.push(peashooter)
 var TotalsunValue = 100;
+
 var zombies = [];
 var zombie_normal = new Image()
 zombie_normal.src = "./assets/zombie_normal/zombie.png"
 
+var peas = []
+var pea = new Image()
+pea.src = "./assets/pea.png"
 
 // event listeners
 canvas.addEventListener('mousemove',function(e){
@@ -51,7 +48,7 @@ canvas.addEventListener('mousemove',function(e){
     mouseActivity.y = e.pageY - canvas.getBoundingClientRect().top 
     // mouseActivity.x = e.x - canvas.getBoundingClientRect().left - gridSize*2
     // mouseActivity.y = e.y - canvas.getBoundingClientRect().top - gridSize*2 
-    console.log('move',e.x, e.y, mouseActivity.x,mouseActivity.y)
+    // console.log('move',e.x, e.y, mouseActivity.x,mouseActivity.y)
     // console.log(e.key)
 })
 
@@ -142,7 +139,7 @@ function eachGrid(x, y){
             ctx.strokeRect(this.x, this.y, this.width, this.height);
             // ctx.fillStyle = 'green';
             // ctx.fillRect(this.x, this.y, this.width, this.height);
-            console.log('draw',this.x,this.y)
+            // console.log('draw',this.x,this.y)
         }
     }
 }
@@ -171,9 +168,9 @@ function Plant(x, y){
     this.frameEnd = 13
     this.imgheight = 73
     this.imgwidth = 73
+    this.plantCount = 0
 
     this.draw = function(){
-        // if(this.x > 210){
             if(this.x > startpointX && this.x < endpointX && this.y >= gridSize && this.y < endpointY){
             // ctx.fillStyle = 'black'
             // ctx.fillRect(this.x, this.y, this.width, this.height)
@@ -182,6 +179,7 @@ function Plant(x, y){
     }
 
     this.change = function(){
+        this.plantCount ++
         if(count % 8 == 0){
             if(this.frameStart < this.frameEnd - 1){
                 this.frameStart = this.frameStart + 1
@@ -190,12 +188,13 @@ function Plant(x, y){
                 this.frameStart = 1
             }
         }
+        if(this.plantCount % 100 == 0){
+            peas.push(new Pea(this.x + (gridSize / 4), this.y + (gridSize / 6)))
+        }
     }
 }
 
 function Zombie(y){
-    // this.height = gridSize ;
-    // this.width = gridSize ;
     this.height = gridSize;
     this.width = gridSize;
     this.x = canvas.width;
@@ -228,6 +227,37 @@ function Zombie(y){
     }
 }
 
+function Pea(x, y){
+    this.width = 50;
+    this.height = 28;
+    this.x = x;
+    this.y = y;
+    this.velocity = 5
+
+    this.draw = function(){
+        // ctx.fillStyle = 'green'
+        // ctx.beginPath()
+        // ctx.arc(this.x, this.y, this.width, 0, 2 * Math.PI)
+        // ctx.fill()
+        ctx.drawImage(pea,this.x , this.y, this.width, this.height)
+        // ctx.fillRect(this.x, this.y, this.width, this.height)
+        // ctx.drawImage(zombie_normal,this.frameStart * this.imgwidth, 0, this.imgwidth, this.imgheight, this.x - (this.width / 1.5), this.y - (this.height / 2), this.width * 1.5, this.height * 1.5)
+    }
+
+    this.change = function(){
+        // console.log('m',this.x)
+        this.x = this.x + this.velocity
+        // if(count % 22 == 0){
+        //     if(this.frameStart < this.frameEnd){
+        //         this.frameStart = this.frameStart + 1
+        //     }
+        //     else{
+        //         this.frameStart = 0
+        //     }
+        // }
+    }
+}
+
 
 
 
@@ -242,6 +272,7 @@ function Zombie(y){
         ctx.fillRect(0,0,controlPanel.width,controlPanel.height)
         drawGrid()
         drawPlant()
+        drawPea()
         drawZombie()
         count ++
         window.requestAnimationFrame(loop);

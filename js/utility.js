@@ -20,7 +20,7 @@ function drawPlant(){
         plants[i].draw()
         plants[i].change()
         for(j = 0; j < zombies.length; j++){
-            if (checkCollision(plants[i], zombies[j])){
+            if (plants[i] && checkCollision(plants[i], zombies[j])){
                 zombies[j].velocity = 0
                 plants[i].health -= 0.1
             }
@@ -46,6 +46,23 @@ function drawZombie(){
     if(count % 300 == 0){
         zombies.push(new Zombie(Math.floor(Math.random() * 5) * gridSize + gridSize))
     }
+}
+
+function drawPea(){
+    for(i = 0; i < peas.length; i++){
+        // console.log('draw plant')
+        peas[i].draw()
+        peas[i].change()
+
+        if (peas[i] && peas[i].x > canvas.width - gridSize){
+            peas.splice(i, 1)
+            i --
+        }
+        console.log('peas', peas.length)
+    }
+    // if(count % 300 == 0){
+    //     zombies.push(new Zombie(Math.floor(Math.random() * 5) * gridSize + gridSize))
+    // }
 }
 
 function checkCollision(one, two){
