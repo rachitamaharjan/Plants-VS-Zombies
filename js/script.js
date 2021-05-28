@@ -40,6 +40,10 @@ var peas = []
 var pea = new Image()
 pea.src = "./assets/pea.png"
 
+var suns = []
+var sun = new Image()
+sun.src = "./assets/sun.png"
+
 var sunBoard = new Image()
 sunBoard.src = "./assets/sunboard.png"
 
@@ -289,36 +293,51 @@ function Pea(x, y){
     // this.attack = true
 
     this.draw = function(){
-        // ctx.fillStyle = 'green'
-        // ctx.beginPath()
-        // ctx.arc(this.x, this.y, this.width, 0, 2 * Math.PI)
-        // ctx.fill()
-        // if(zombiePosition <= endpointX){
             ctx.drawImage(pea,this.x , this.y, this.width, this.height)
-        // }
-            // ctx.fillRect(this.x, this.y, this.width, this.height)
-        // ctx.drawImage(zombie_normal,this.frameStart * this.imgwidth, 0, this.imgwidth, this.imgheight, this.x - (this.width / 1.5), this.y - (this.height / 2), this.width * 1.5, this.height * 1.5)
     }
 
     this.change = function(){
-        // if(this.attack ==  true){
-            // if(zombiePosition <= 900){
                 this.x = this.x + this.velocity
-            // }
-        // }
-        // console.log('m',this.x)
-        // if(count % 22 == 0){
-        //     if(this.frameStart < this.frameEnd){
-        //         this.frameStart = this.frameStart + 1
-        //     }
-        //     else{
-        //         this.frameStart = 0
-        //     }
-        // }
     }
 }
 
+function Sun(x){
+    this.height = gridSize;
+    this.width = gridSize;
+    this.x = x;
+    this.y = 0;
+    this.frameStart = 0
+    this.frameEnd = 21
+    this.imgheight = 80
+    this.imgwidth = 80
+    this.velocity = 1
+    this.value = 10
 
+    this.draw = function(){
+        // ctx.fillStyle = 'black'
+        // ctx.fillRect(this.x, this.y, this.width, this.height)
+            ctx.drawImage(sun,this.frameStart * this.imgwidth, 0, this.imgwidth, this.imgheight, this.x, this.y, this.width / 1.5, this.height / 1.5)
+    }
+
+    this.change = function(){
+            this.y = this.y + this.velocity
+                if(count % 5 == 0){
+                    if(this.frameStart < this.frameEnd){
+                        this.frameStart = this.frameStart + 1
+                    }
+                    else{
+                        this.frameStart = 0
+                    }
+                }
+            groundTouchValue = Math.floor(Math.random() * 5 + 1) * gridSize
+            // console.log('value',groundTouchValue)
+            if (this.y == groundTouchValue){
+                this.velocity = 0
+            }
+                // this.velocity = 0
+            
+    }
+}
 
 
 (function loop(){
@@ -335,6 +354,7 @@ function Pea(x, y){
         drawPlant()
         drawPea()
         drawZombie()
+        drawSun()
         count ++
         window.requestAnimationFrame(loop);
     //     moveBase()

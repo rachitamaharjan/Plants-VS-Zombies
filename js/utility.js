@@ -92,6 +92,31 @@ function drawPea(){
     // }
 }
 
+function drawSun(){
+    for(i = 0; i < suns.length; i++){
+        suns[i].draw()
+        suns[i].change()
+
+        if(suns[i] && mouseActivity.x && mouseActivity.y && checkCollision(suns[i], mouseActivity)){
+            console.log('yes')
+            TotalsunValue = TotalsunValue + suns[i].value
+            suns.splice(i, 1)
+            i --
+        }
+        // if (suns[i] && suns[i].y > canvas.height){
+        //     suns.splice(i, 1)
+        //     i --
+        // }
+        // if(suns[i] && suns[i].health <= 0){
+        //         suns.splice(i, 1)
+        //         i--
+        // }
+    }
+    if(count % 1000 == 0){
+        suns.push(new Sun(Math.floor(Math.random() * 5) * gridSize + startpointX))
+    }
+}
+
 function checkCollision(one, two){
     // one = val1.getBoundingClientRect()
     // two = val2.getBoundingClientRect()
