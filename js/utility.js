@@ -60,7 +60,7 @@ function drawPea(){
 
         for(j = 0; j < zombies.length; j++){
             if (peas[i] && checkCollision(peas[i], zombies[j])){
-                zombies[i].health -= 6
+                zombies[j].health -= 6
                 peas.splice(i, 1)
                 i --
             }
