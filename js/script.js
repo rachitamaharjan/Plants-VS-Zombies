@@ -32,7 +32,9 @@ var TotalsunValue = 100;
 
 var zombies = [];
 var zombie_normal = new Image()
-zombie_normal.src = "./assets/zombie_normal/zombie.png"
+zombie_normal.src = "./assets/zombie_normal/zombie1.png"
+var zombie_head = new Image()
+zombie_head.src = "./assets/zombie_normal/zombie_head.png"
 
 var peas = []
 var pea = new Image()
@@ -204,26 +206,66 @@ function Zombie(y){
     this.type = plantVariety[0]
     this.frameStart = 0
     this.frameEnd = 21
+    this.attackFrameStart = 23
+    this.attackFrameEnd = 43
+    this.dieFrameStart = 44
+    this.dieFrameEnd = 52
     this.imgheight = 146
     this.imgwidth = 168
     this.velocity = 0.5
+    this.spriteSpeed = 3
+    this.attacking = false
+    this.dying = false
 
     this.draw = function(){
         // ctx.fillStyle = 'black'
         // ctx.fillRect(this.x, this.y, this.width, this.height)
-        ctx.drawImage(zombie_normal,this.frameStart * this.imgwidth, 0, this.imgwidth, this.imgheight, this.x - (this.width / 1.5), this.y - (this.height / 2), this.width * 1.5, this.height * 1.5)
+        if(this.dying == true){
+            ctx.drawImage(zombie_normal,this.dieFrameStart * this.imgwidth, 0, this.imgwidth, this.imgheight, this.x - (this.width / 1.5), this.y - (this.height / 2), this.width * 1.5, this.height * 1.5)
+            ctx.drawImage(zombie_head,(this.dieFrameStart - 44) * 150, 0, 150, 186, this.x - (this.width / 1.5), this.y - (this.height / 2), this.width * 1.5, this.height * 1.5)
+        }
+        else if(this.attacking == true){
+            ctx.drawImage(zombie_normal,this.attackFrameStart * this.imgwidth, 0, this.imgwidth, this.imgheight, this.x - (this.width / 1.5), this.y - (this.height / 2), this.width * 1.5, this.height * 1.5)
+        }
+        else{
+            ctx.drawImage(zombie_normal,this.frameStart * this.imgwidth, 0, this.imgwidth, this.imgheight, this.x - (this.width / 1.5), this.y - (this.height / 2), this.width * 1.5, this.height * 1.5)
+        }
     }
 
     this.change = function(){
             this.x = this.x - this.velocity
-        if(count % 22 == 0){
-            if(this.frameStart < this.frameEnd){
-                this.frameStart = this.frameStart + 1
+            if(this.dying == true){
+                if(count % 3 == 0){
+                    if(this.dieFrameStart < this.dieFrameEnd){
+                        this.dieFrameStart = this.dieFrameStart + 1
+                    }
+                    else{
+                        this.dieFrameStart = 52
+                    }
+                }
+                this.velocity = 0
+            }
+            else if(this.attacking == true){
+                if(count % 3 == 0){
+                    if(this.attackFrameStart < this.attackFrameEnd - 1){
+                        this.attackFrameStart = this.attackFrameStart + 1
+                    }
+                    else{
+                        this.attackFrameStart = 24
+                    }
+                }
             }
             else{
-                this.frameStart = 0
+                if(count % this.spriteSpeed == 0){
+                    if(this.frameStart < this.frameEnd){
+                        this.frameStart = this.frameStart + 1
+                    }
+                    else{
+                        this.frameStart = 0
+                    }
+                }
             }
-        }
+            
     }
 }
 

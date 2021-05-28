@@ -21,12 +21,14 @@ function drawPlant(){
         plants[i].change()
         for(j = 0; j < zombies.length; j++){
             if (plants[i] && checkCollision(plants[i], zombies[j])){
+                zombies[j].attacking = true
                 zombies[j].velocity = 0
                 plants[i].health -= 0.1
             }
             if(plants[i] && plants[i].health <= 0){
                 plants.splice(i, 1)
                 i--
+                zombies[j].attacking = false
                 zombies[j].velocity = 0.5
             }
         }
@@ -36,15 +38,28 @@ function drawPlant(){
 function drawZombie(){
     for(i = 0; i < zombies.length; i++){
         // console.log('draw plant')
+        if(zombies[i].health < 7){
+            // if(zombies[i].health <= 0){
+            //     zombies[i].dieFrameStart += 43
+            //     zombies[i].dieFrameEnd = 52
+            //     zombies[i].spriteSpeed = 0.5
+            // }
+            zombies[i].dying = true
+        }
         zombies[i].draw()
         zombies[i].change()
         if (zombies[i].x < stoppointX){
             player.playing = false
             player.endgame = true
         }
+        // if(zombies[i].health < 7){
+        //     zombies[i].frameStart = 42
+        //     zombies[i].frameEnd = 51
+        //     // zombies[i].spriteSpeed = 2
+        // }
         if(zombies[i] && zombies[i].health <= 0){
-            zombies.splice(i, 1)
-            i--
+                zombies.splice(i, 1)
+                i--
         }
     }
     if(count % 300 == 0){
