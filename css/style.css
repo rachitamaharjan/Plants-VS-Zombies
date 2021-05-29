@@ -1,7 +1,11 @@
 body{
-    background-image: url('../assets/bg.jpg');
-    overflow: hidden;
+    background: url('../assets/bg.jpg') no-repeat center center fixed;
+    /* overflow: hidden;
     background-repeat: no-repeat;
+    background-size: cover; */
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
     background-size: cover;
 }
 
@@ -17,166 +21,36 @@ body{
     /* overflow: hidden;
     background-repeat: no-repeat;
     background-size: cover; */
+    /* margin-top: 100px; */
+    /* background-color: rgba(0,0,0,0.5);  */
+
 }
 
-canvas{
-    width: 100%;
-    height: 100%;
-    background-image: url('../assets/Background_0.jpg');
+#game{
+    width: 1000px;
+    height: 500px;
+    background-image: url(../assets/Background_0.jpg);
     overflow: hidden;
     background-repeat: no-repeat;
     background-size: cover;
     border: solid 15px;
     margin-top: 100px;
+}
 
-    /* transform: translate(25%,25%); */
+#overlay{
+        /* margin-top: -500px; */
+    /* position: fixed; */
+    display: none;
+    /* width: 100%; */
+    /* position: fixed; */
+    /* left: 25%; */
+    /* top: 25%; */
+    transform: translate(calc(50% - 500px),-101%);
     /* width: 1000px; */
     /* height: 500px; */
-    /* margin-top: 100px; */
-    /* background-image: url('../assets/background.png'); */
-    /* border: solid 15px;
-    overflow: hidden; */
-}
-
-
-/* .main-container-wrapper{
-    width: 1000px;
-    height: 500px;
-    margin-top: 100px;
-    background-image: url('../assets/background.png');
-    border: solid 15px;
-    overflow: hidden;
-}
-
-.main-container{
-    position: relative;
-    height: 100%;
-
-}
-
-#base{
-    text-align: center;
-    font-family: fantasy;
-    margin-top: 90px;
-    font-weight: 900;
-}
-
-
-#score{
-    box-sizing: border-box;
-    text-align: center;
-    padding: 10px;
-    font-size: 25px;
-    font-family: fantasy;
-    color: white;
-    border-radius: 15px;
-    min-height: 40px;
-    width: 150px;
-}
-
-.pop-up{
-    border-radius: 15px;
-    line-height: 25px;
-    transform: translateY(10%);    
-    padding: 20px;
-    text-align: center;
-    color: white;
-    background-image: url(../assets/message.png);
-    background-position: center;
-    background-repeat: no-repeat;
-    height: 267px;
-    width: 184px;
-}
-
-.display-key{
-    font-weight: bold;
-    color: white;
-}
-
-.pop-up:hover{
-    cursor: pointer;
-}
-
-.player-bird{
-    position: absolute;
-    top: 50%;
-    left: 150px;
-    background-image: url('../assets/yellowbird-midflap.png');
-    height: 24px;
-    width: 34px;
-    background-position: center; 
-    background-repeat: no-repeat; 
-    background-size: cover; 
-}
-
-.bird-mid{
-    background-image: url('../assets/yellowbird-midflap.png');
-}
-
-.bird-up{
-    background-image: url('../assets/yellowbird-upflap.png');
-}
-
-.bird-down{
-    background-image: url('../assets/yellowbird-downflap.png');
-}
-
-.blocker-pipes{
-    position: absolute;
-    /* top: calc(100% - 90px);
-    left: calc(50% - 45px/2); */
-    height: 90px;
-    width: 52px;
-    background-position: center; 
-    background-repeat: no-repeat; 
-    background-size: cover; 
-}
-
-.pipe-row1{
-    position: absolute;
-    /* right: 0; */
-    left: 1000px;
-}
-
-.pipe-row2{
-    position: absolute;
-    /* right: -900px; */
-    left: 1500px;
-}
-
-.pipe-row3{
-    position: absolute;
-    /* right: 900px; */
-    left: 500px;
-}
-
-.pipe-up{
-    background-image: url('../assets/pipe-red-up.png');
-    background-position: bottom;
-}
-
-.pipe-down{
-    background-image: url('../assets/pipe-red-down.png');
-    background-position: top;
-}
-
-#invisible{
-    display: none;
-}
-
-#visible{
-    display: block;
-    background-image: url(../assets/gameover.png);
-    background-position: top;
-    background-repeat: no-repeat;
-    width: 192px;
-    height: 42px;
-    font-family: fantasy;
-    font-size: 25px;
-    line-height: 35px;
-    color: maroon;
-    font-weight: 900;
-    transform: translateY(100%);
-}
- */
-
+    /* height: 100%; */
+    /* height: 500px; */
+    /* width: 960px; */
+    /* margin-left: 20px; */
+    background-color: rgba(0,0,0,0.5);
+  }

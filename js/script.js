@@ -16,6 +16,8 @@ var count = 0
 var canvas = document.getElementById('game')
 var containerPos = (document.getElementsByClassName('main-container-wrapper'))[0]
 var ctx = canvas.getContext('2d')
+var overlay = document.getElementById('overlay')
+var ctx2 = overlay.getContext('2d')
 canvas.width = 1000;
 canvas.height = 500;
 var gridSize = 80;
@@ -245,7 +247,7 @@ var sunflowerCard = {
 
 var peashooterCard = {
     x : 10,
-    y : 205,
+    y : 215,
     height : 90,
     width : 65,
     fill : 'green',
@@ -254,7 +256,7 @@ var peashooterCard = {
 
 var snowPeashooterCard = {
     x : 10,
-    y : 305,
+    y : 325,
     height : 90,
     width : 65,
     fill : 'green',
@@ -293,14 +295,14 @@ function plantSelecter(){
     }
     ctx.lineWidth = 2
     ctx.fillStyle = peashooterCard.fill
-    ctx.fillRect(peashooterCard.x, peashooterCard.y, peashooterCard.width + 5, peashooterCard.height + 5)
-    ctx.drawImage(card_peashooter,peashooterCard.x + 2.5, peashooterCard.y + 2.5, peashooterCard.width, peashooterCard.height)
+    ctx.fillRect(peashooterCard.x, peashooterCard.y, peashooterCard.width + 10, peashooterCard.height + 10)
+    ctx.drawImage(card_peashooter,peashooterCard.x + 5, peashooterCard.y + 5, peashooterCard.width, peashooterCard.height)
     ctx.fillStyle = snowPeashooterCard.fill
-    ctx.fillRect(snowPeashooterCard.x, snowPeashooterCard.y, snowPeashooterCard.width + 5, snowPeashooterCard.height + 5)
-    ctx.drawImage(card_snowPeashooter,snowPeashooterCard.x + 2.5, snowPeashooterCard.y + 2.5, snowPeashooterCard.width, snowPeashooterCard.height)
+    ctx.fillRect(snowPeashooterCard.x, snowPeashooterCard.y, snowPeashooterCard.width + 10, snowPeashooterCard.height + 10)
+    ctx.drawImage(card_snowPeashooter,snowPeashooterCard.x + 5, snowPeashooterCard.y + 5, snowPeashooterCard.width, snowPeashooterCard.height)
     ctx.fillStyle = sunflowerCard.fill
-    ctx.fillRect(sunflowerCard.x, sunflowerCard.y, sunflowerCard.width + 5, sunflowerCard.height + 5)
-    ctx.drawImage(card_sunflower,sunflowerCard.x + 2.5, sunflowerCard.y + 2.5, sunflowerCard.width, sunflowerCard.height)
+    ctx.fillRect(sunflowerCard.x, sunflowerCard.y, sunflowerCard.width + 10, sunflowerCard.height + 10)
+    ctx.drawImage(card_sunflower,sunflowerCard.x + 5, sunflowerCard.y + 5, sunflowerCard.width, sunflowerCard.height)
 
 }
 
@@ -518,7 +520,6 @@ function Sun(x, y){
     }
 }
 
-
 (function loop(){
     // console.log('ok')
 
@@ -547,12 +548,15 @@ function Sun(x, y){
         window.requestAnimationFrame(loop);
 
     }
+    
     if (player.endgame == true){
-        ctx.shadowOffsetX = 10;
-            ctx.shadowOffsetY = 10;
-            ctx.shadowColor = 'black';
-            ctx.shadowBlur = 50;
-            ctx.drawImage(brainPlate, canvas.width / 3 + 100, canvas.height / 3 + 220, 713 / 4, 287 / 4)
-            ctx.drawImage(zombiesWon, canvas.width / 3, canvas.height / 8, 564 / 1.5, 468 / 1.5)
+        overlay.style.display = 'block'
+        ctx2.shadowOffsetX = 10;
+            ctx2.shadowOffsetY = 10;
+            ctx2.shadowColor = 'black';
+            ctx2.shadowBlur = 5;
+            // ctx2.imageSmoothingEnabled = false;
+            ctx2.drawImage(brainPlate, canvas.width / 3 + 100, canvas.height / 3 + 220, 713 / 4, 287 / 4)
+            ctx2.drawImage(zombiesWon, canvas.width / 3, canvas.height / 8, 564 / 1.5, 468 / 1.5)
     }
 })()
