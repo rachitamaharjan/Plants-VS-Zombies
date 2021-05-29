@@ -4,6 +4,10 @@ var stoppointX = 170
 var startpointX = 215
 var endpointX = 730
 var endpointY = 480
+var zombieLimit = undefined
+var lvl1_grid = [240]
+var lvl2_grid = [160, 240, 320]
+var lvl3_grid = [80, 160, 240, 320, 400]
 // if(player.level == 1){
 //     var startPointY = 240
 //     endpointY = 730 - 160 
@@ -82,8 +86,20 @@ function drawZombie(){
         }
     }
     if(count % 500 == 0){
-        if(zombieCount < 10){
-            zombies.push(new Zombie(Math.floor(Math.random() * 5) * gridSize + gridSize))
+        if(player.level == 1){
+             if(zombieCount < 5){
+                zombies.push(new Zombie(240))
+            }
+        }
+        else if(player.level == 2){
+            if(zombieCount < 10){
+                zombies.push(new Zombie(lvl2_grid[Math.floor(Math.random() * lvl2_grid.length)]))
+            }
+        }
+        else if(player.level == 3){
+            if(zombieCount < 10){
+                zombies.push(new Zombie(lvl3_grid[Math.floor(Math.random() * lvl3_grid.length)]))
+            }
         }
         zombieCount++
         // totalZombies -= 1

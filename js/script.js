@@ -62,7 +62,7 @@ plantVariety.push(sunflower)
 
 var zombies = [];
 var totalZombies = 10
-var zombieCount = 1
+var zombieCount = 0
 var zombieVariety = []
 
 // zombie normal
@@ -90,7 +90,7 @@ pea.src = "./assets/pea.png"
 var snowPea = new Image()
 snowPea.src = "./assets/snowPea.png"
 
-var TotalsunValue = 500;
+var TotalsunValue = 200;
 var suns = []
 var sun = new Image()
 sun.src = "./assets/sun.png"
@@ -351,15 +351,15 @@ function Plant(x, y){
     }
     if(player.level == 1){
         var startpointY = gridSize * 3
-        endpointY = 730 - gridSize * 2 
+        endpointY = endpointX - gridSize * 2 
     }
     else if(player.level == 2){
         var startpointY = gridSize * 2
-        endpointY = 730 - gridSize
+        endpointY = endpointX - gridSize
     }
     else if(player.level == 3){
         var startpointY = gridSize
-        endpointY = 730
+        endpointY = endpointX
     }
 
     this.draw = function(){
@@ -389,7 +389,7 @@ function Plant(x, y){
             }
         }
         if(this.type == 1){
-            if(this.plantCount % 800 == 0){
+            if(this.plantCount % 500 == 0){
                 suns.push(new Sun(this.x, this.y))
             }
         }
@@ -407,8 +407,13 @@ function Zombie(y){
     this.x = canvas.width;
     this.y = y;
     this.attack = false;
-    this.type = zombieVariety[Math.floor(Math.random() * zombieVariety.length)]
-    console.log('choose',this.type, zombieVariety[1], Math.floor(Math.random() * zombieVariety.length))
+    if(player.level == 1){
+        this.type = zombie_normal
+        zombieLimit = 5
+    }else{
+        zombieLimit = 10
+        this.type = zombieVariety[Math.floor(Math.random() * zombieVariety.length)]
+    }
     if (this.type == zombieVariety[0]){
         this.health = 30;
         this.frameStart = 0
@@ -572,7 +577,7 @@ function loop(){
         drawZombie()
         drawSun()
         count ++
-        if(zombies.length == 0){
+        if(zombies.length == 0 && zombieCount >= zombieLimit){
             ctx.fillStyle = 'Black'
             ctx.font = '40px Bold Arial'
             ctx.fillText('ZOMBIES WERE DEFEATED! YOU WON', canvas.width / 2, canvas.height / 2)
