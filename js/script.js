@@ -86,7 +86,6 @@ var peas = []
 var pea = new Image()
 pea.src = "./assets/pea.png"
 
-// var snowPeas = []
 var snowPea = new Image()
 snowPea.src = "./assets/snowPea.png"
 
@@ -491,7 +490,6 @@ function Zombie(y){
                     }
                 }
             }
-            
     }
 }
 
@@ -509,7 +507,6 @@ function Pea(type, x, y){
         this.peaType = snowPea
         this.power = 7
     }
-    // this.attack = true
 
     this.draw = function(){
         ctx.drawImage(this.peaType,this.x , this.y, this.width, this.height)
@@ -533,9 +530,7 @@ function Sun(x, y){
     this.value = 25
 
     this.draw = function(){
-        // ctx.fillStyle = 'black'
-        // ctx.fillRect(this.x, this.y, this.width, this.height)
-            ctx.drawImage(sun,this.frameStart * this.imgwidth, 0, this.imgwidth, this.imgheight, this.x, this.y, this.width / 1.5, this.height / 1.5)
+        ctx.drawImage(sun,this.frameStart * this.imgwidth, 0, this.imgwidth, this.imgheight, this.x, this.y, this.width / 1.5, this.height / 1.5)
     }
 
     this.change = function(){
@@ -549,28 +544,21 @@ function Sun(x, y){
                     }
                 }
             groundTouchValue = Math.floor(Math.random() * 5 + 1) * gridSize
-            // console.log('value',groundTouchValue)
             if (this.y == groundTouchValue){
                 this.velocity = 0
-            }
-                // this.velocity = 0
-            
+            }            
     }
 }
 
 function loop(){
-    // console.log('ok')
 
-    // var blockerPipes = document.getElementsByClassName('blocker-pipes')
     if(! player.playing){
         ctx.drawImage(PvZ, canvas.x, canvas.y, 4267 / 10, 2500 / 10)
     }
     else if (player.playing){
         ctx.clearRect(0,0,canvas.width, canvas.height)
-        // ctx.fillStyle = 'gray';
         drawBoard()
         plantSelecter()
-        // ctx.fillRect(0,0,controlPanel.width,controlPanel.height)
         drawGrid()
         drawPlant()
         drawPea()
@@ -584,7 +572,6 @@ function loop(){
             player.playing = false
         }
         window.requestAnimationFrame(loop);
-
     }
     
     if (player.endgame == true){
@@ -593,7 +580,6 @@ function loop(){
             ctx2.shadowOffsetY = 10;
             ctx2.shadowColor = 'black';
             ctx2.shadowBlur = 5;
-            // ctx2.imageSmoothingEnabled = false;
             ctx2.drawImage(brainPlate, canvas.width / 3 + 100, canvas.height / 3 + 220, 713 / 4, 287 / 4)
             ctx2.drawImage(zombiesWon, canvas.width / 3, canvas.height / 8, 564 / 1.5, 468 / 1.5)
     }
