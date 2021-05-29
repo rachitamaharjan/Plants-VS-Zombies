@@ -13,6 +13,7 @@ var player = {
 }
 
 var count = 0
+var popUp = document.getElementsByClassName('pop-up')
 var canvas = document.getElementById('game')
 var containerPos = (document.getElementsByClassName('main-container-wrapper'))[0]
 var ctx = canvas.getContext('2d')
@@ -164,22 +165,22 @@ canvas.addEventListener('click', function(e){
 // var blockerPipes = document.getElementsByClassName('blocker-pipes')
 
 
-// var startGame = popUp[0].addEventListener('click', function(){
+var startGame = popUp[0].addEventListener('click', function(){
 
-//     // popUp[0].id = 'invisible'
-//     // base.style.display = 'none'
-//     // player.speed = 5
-//     // gameArea.innerHTML = ''
-//     // player.playing = true
-//     // player.score = 0
-//     // createPipeRow('pipe-row1')
-//     // createPipeRow('pipe-row2')
-//     // createPipeRow('pipe-row3')
+    popUp[0].id = 'invisible'
+    // base.style.display = 'none'
+    // player.speed = 5
+    // gameArea.innerHTML = ''
+    // player.playing = true
+    // player.score = 0
+    // createPipeRow('pipe-row1')
+    // createPipeRow('pipe-row2')
+    // createPipeRow('pipe-row3')
 
-//     // mainContainer[0].appendChild(playerBird)
-//     // playerBird.style.transform = "unset"
-//     window.requestAnimationFrame(loop);
-// })
+    // mainContainer[0].appendChild(playerBird)
+    // playerBird.style.transform = "unset"
+    window.requestAnimationFrame(loop);
+})
 
 // // click and press event listeners
 // mainContainer[0].addEventListener('click', flapUp)
@@ -520,7 +521,7 @@ function Sun(x, y){
     }
 }
 
-(function loop(){
+function loop(){
     // console.log('ok')
 
     // var blockerPipes = document.getElementsByClassName('blocker-pipes')
@@ -559,4 +560,4 @@ function Sun(x, y){
             ctx2.drawImage(brainPlate, canvas.width / 3 + 100, canvas.height / 3 + 220, 713 / 4, 287 / 4)
             ctx2.drawImage(zombiesWon, canvas.width / 3, canvas.height / 8, 564 / 1.5, 468 / 1.5)
     }
-})()
+}

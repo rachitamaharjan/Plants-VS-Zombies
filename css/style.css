@@ -26,6 +26,33 @@ body{
 
 }
 
+.pop-up{
+    background-image: url(../assets/PvZ.png);
+    width: 970px;
+    height: 470px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    transform: translate(calc(50% - 485px),-104%);
+    font-family: fantasy;
+    font-size: 30px;
+    text-align: center;
+    padding-top: 400px;
+}
+
+.pop-up:hover{
+    cursor: pointer;
+    color: white;
+}
+
+#invisible{
+    display: none;
+}
+
+#visible{
+    display: block;
+}
+
 #game{
     width: 1000px;
     height: 500px;
