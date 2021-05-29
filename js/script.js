@@ -43,7 +43,7 @@ PvZ.src = "./assets/PvZ.png"
 var card_peashooter = new Image()
 card_peashooter.src = "./assets/cards/card_peashooter.png"
 var peashooter = new Image()
-peashooter.src = "./assets/peashooter/peashooter_idle.png"
+peashooter.src = "./assets/snowPeashooter/snowPeashooter.png"
 plantVariety.push(peashooter)
 
 // snowPeashooter
