@@ -50,7 +50,7 @@ plantVariety.push(peashooter)
 var card_snowPeashooter = new Image()
 card_snowPeashooter.src = "./assets/cards/card_snowpea.png"
 var snowPeashooter = new Image()
-snowPeashooter.src = "./assets/snowPeashooter/snowPeashooter.png"
+snowPeashooter.src = "./assets/peashooter/peashooter_idle.png"
 plantVariety.push(snowPeashooter)
 
 // sunflower
