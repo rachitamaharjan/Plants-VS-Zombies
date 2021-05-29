@@ -43,14 +43,14 @@ PvZ.src = "./assets/PvZ.png"
 var card_peashooter = new Image()
 card_peashooter.src = "./assets/cards/card_peashooter.png"
 var peashooter = new Image()
-peashooter.src = "./assets/snowPeashooter/snowPeashooter.png"
+peashooter.src = "./assets/peashooter/peashooter_idle.png"
 plantVariety.push(peashooter)
 
 // snowPeashooter
 var card_snowPeashooter = new Image()
 card_snowPeashooter.src = "./assets/cards/card_snowpea.png"
 var snowPeashooter = new Image()
-snowPeashooter.src = "./assets/snowPeashooter/snowPeashooter.png"
+snowPeashooter.src = "./assets/snowPeaShooter/snowPeaShooter.png"
 plantVariety.push(snowPeashooter)
 
 // sunflower
@@ -437,7 +437,7 @@ function Zombie(y){
     }
     this.imgheight = 146
     this.imgwidth = 168
-    this.velocity = 0.5
+    this.velocity = 5
     this.spriteSpeed = 3
     this.attacking = false
     this.dying = false
