@@ -155,6 +155,7 @@ button_level3.addEventListener('click', function(){
     window.requestAnimationFrame(loop);
 })
 
+
 restartBtn.addEventListener('click', function(){
     zombieCount = 0
     plants = []
@@ -297,21 +298,19 @@ function eachGrid(x, y){
 
 function createGrid(){
         console.log('level',player.level)
-        // if(player.level == 1){
-        //     var startPointY = 240
-        //     endpointY = 730 - 160 
-        //     // var startPointY = gridSize * 3
-        //     // endpointY = 730 - gridSize * 2 
-        // }
-        // else if(player.level == 2){
-        //     var startPointY = gridSize * 2
-        //     endpointY = 730 - gridSize
-        // }
-        // else if(player.level == 3){
-        //     var startPointY = gridSize
-        //     endpointY = 730
-        // }
-        for(i = gridSize; i < endpointY; i += gridSize){
+        if(player.level == 1){
+            var startpointY = gridSize * 3
+            endpointY = 320
+        }
+        else if(player.level == 2){
+            var startpointY = gridSize * 2
+            endpointY = 400
+        }
+        else if(player.level == 3){
+            var startpointY = gridSize
+            endpointY = 480
+        }
+        for(i = startpointY; i < endpointY; i += gridSize){
             for(j = startpointX; j < endpointX; j += gridSize){
                 gameBoard.push(new eachGrid(j, i))
             }
