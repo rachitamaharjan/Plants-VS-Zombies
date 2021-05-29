@@ -1,12 +1,23 @@
 
-// var range = 5
-// var baseX = 0
-// var mainContainer = document.getElementsByClassName('main-container')
+
 var stoppointX = 170
 var startpointX = 215
 var endpointX = 730
 var endpointY = 480
-
+// if(player.level == 1){
+//     var startPointY = 240
+//     endpointY = 730 - 160 
+//     // var startPointY = gridSize * 3
+//     // endpointY = 730 - gridSize * 2 
+// }
+// else if(player.level == 2){
+//     var startPointY = gridSize * 2
+//     endpointY = 730 - gridSize
+// }
+// else if(player.level == 3){
+//     var startPointY = gridSize
+//     endpointY = 730
+// }
 
 function drawGrid(){
     for(i = 0; i < gameBoard.length; i++){
@@ -17,7 +28,6 @@ function drawGrid(){
 
 function drawPlant(){
     for(i = 0; i < plants.length; i++){
-        // console.log('draw plant')
         plants[i].draw()
         plants[i].change()
         for(j = 0; j < zombies.length; j++){

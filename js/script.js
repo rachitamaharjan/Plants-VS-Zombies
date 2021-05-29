@@ -10,6 +10,7 @@ var mouseActivity = {
 var player = {
     playing : false,
     endgame : false,
+    level : undefined
 }
 
 var count = 0
@@ -115,36 +116,37 @@ var startGame = popUp[0].addEventListener('click', function(){
     // window.requestAnimationFrame(loop);
 })
 
-var level1 = button_level1.addEventListener('click', function(){
-    mainmenu[0].id = 'invisible'
-    player.playing = true
-    window.requestAnimationFrame(loop);
-})
-
-var level2 = button_level2.addEventListener('click', function(){
-    mainmenu[0].id = 'invisible'
-    player.playing = true
-    window.requestAnimationFrame(loop);
-})
-
-var level3 = button_level3.addEventListener('click', function(){
-    mainmenu[0].id = 'invisible'
-    player.playing = true
-    window.requestAnimationFrame(loop);
-})
-
 // event listeners
+
+button_level1.addEventListener('click', function(){
+    mainmenu[0].id = 'invisible'
+    player.level = 1
+    player.playing = true
+    canvas.style.backgroundImage = "url('./assets/background_img/bgLevel1.png')";
+    window.requestAnimationFrame(loop);
+})
+
+button_level2.addEventListener('click', function(){
+    mainmenu[0].id = 'invisible'
+    player.level = 2
+    player.playing = true
+    canvas.style.backgroundImage = "url('./assets/background_img/bgLevel2.png')";
+    window.requestAnimationFrame(loop);
+})
+
+button_level3.addEventListener('click', function(){
+    mainmenu[0].id = 'invisible'
+    player.level = 3
+    player.playing = true
+    canvas.style.backgroundImage = "url('./assets/background_img/bgLevel3.jpg')";
+    window.requestAnimationFrame(loop);
+})
+
 canvas.addEventListener('mousemove',function(e){
     e.preventDefault();
     mouseActivity[e.MouseHover] = true
-    // mouseActivity.x = e.pageX
-    // mouseActivity.y = e.pageY
     mouseActivity.x = e.pageX - canvas.getBoundingClientRect().left 
     mouseActivity.y = e.pageY - canvas.getBoundingClientRect().top 
-    // mouseActivity.x = e.x - canvas.getBoundingClientRect().left - gridSize*2
-    // mouseActivity.y = e.y - canvas.getBoundingClientRect().top - gridSize*2 
-    // console.log('move',e.x, e.y, mouseActivity.x,mouseActivity.y)
-    // console.log(e.key)
 })
 
 // var mouseleave = document.addEventListener('mouseleave',function(e){
@@ -153,11 +155,8 @@ canvas.addEventListener('mouseleave',function(e){
     mouseActivity[e.MouseHover] = false
     mouseActivity.x = undefined
     mouseActivity.y = undefined
-    // console.log('not')
-
-    // console.log(e.key)
 })
-console.log('m',mouseActivity.clicked)
+
 canvas.addEventListener('mousedown',function(e){
     mouseActivity.clicked = true
     console.log('m',mouseActivity.clicked)
@@ -168,17 +167,16 @@ canvas.addEventListener('mouseup',function(e){
 })
 
 canvas.addEventListener('click', function(e){
-    // console.log('clock')
     var posx = mouseActivity.x - (mouseActivity.x % gridSize);
     var posy = mouseActivity.y - (mouseActivity.y % gridSize);
     var sunVal = undefined;
     if(selectedPlant == 0){
-        sunVal = sunflowerCard.sunValue
-    }
-    if(selectedPlant == 1){
         sunVal = peashooterCard.sunValue
     }
-    if(selectedPlant == 2){
+    else if(selectedPlant == 1){
+        sunVal = sunflowerCard.sunValue
+    }
+    else if(selectedPlant == 2){
         sunVal = snowPeashooterCard.sunValue
     }
     for (i = 0; i < plants.length; i++){
@@ -186,41 +184,26 @@ canvas.addEventListener('click', function(e){
             return
         }
     }
-    if ((TotalsunValue >= sunVal) && posx > startpointX && posx < endpointX && posy >= gridSize){
+    if(player.level == 1){
+        var startpointY = gridSize * 3
+        endpointY = 320
+    }
+    else if(player.level == 2){
+        var startpointY = gridSize * 2
+        endpointY = 400
+    }
+    else if(player.level == 3){
+        var startpointY = gridSize
+        endpointY = 730
+    }
+    if ((TotalsunValue >= sunVal) && posx > startpointX && posx < endpointX && posy >= startpointY  && posy < endpointY){
+        console.log('planted',posy,endpointY)
         plants.push(new Plant(posx, posy))
         TotalsunValue = TotalsunValue - sunVal
         // console.log('okk',posx,posy,e.x,e.y)
     }
 
 })
-
-// var player = { playing: false, score: 0, speed: 3, gravity: 0.5, velocity: 0, upward: -10, highScore: getHighScore()}
-// var pointsBefore = player.score
-// var score = document.getElementById('score')
-// var popUp = document.getElementsByClassName('pop-up')
-// var base = document.getElementById('base')
-// var playerBird =  document.createElement('div')
-// playerBird.className = 'player-bird'
-// playerBird.y = playerBird.offsetTop
-// var gameArea = document.getElementById('game-area')
-// var blockerPipes = document.getElementsByClassName('blocker-pipes')
-
-
-// // click and press event listeners
-// mainContainer[0].addEventListener('click', flapUp)
-// document.addEventListener('keypress', flapUp)
-
-// function flapUp(e){
-//     bird.goingUp = true
-//     bird.goingDown = false
-//     document.getElementsByClassName('player-bird')[0].classList.add('bird-down')
-//     document.getElementsByClassName('player-bird')[0].classList.remove('bird-up')
-//     document.getElementsByClassName('player-bird')[0].classList.remove('bird-down')
-//     playerBird.y = playerBird.offsetTop
-//     player.velocity += player.upward
-//     playerBird.y += player.velocity
-//     playerBird.style.top =  playerBird.y + 'px'
-// }
 
 function eachGrid(x, y){
     this.height = gridSize;
@@ -230,12 +213,8 @@ function eachGrid(x, y){
 
     this.draw = function(){
         if(mouseActivity.x && mouseActivity.y && checkCollision(this, mouseActivity)){
-            // console.log('yes')
             ctx.strokeStyle = 'green';
             ctx.strokeRect(this.x, this.y, this.width, this.height);
-            // ctx.fillStyle = 'green';
-            // ctx.fillRect(this.x, this.y, this.width, this.height);
-            // console.log('draw',this.x,this.y)
         }
     }
 }
@@ -243,13 +222,26 @@ function eachGrid(x, y){
 
 
 (function createGrid(){
-    for(i = gridSize; i < endpointY; i += gridSize){
-        for(j = startpointX; j < endpointX; j += gridSize){
-        // for(j = gridSize * 2; j < canvas.width; j += gridSize){
-            // console.log('in')
-            gameBoard.push(new eachGrid(j, i))
+        console.log('level',player.level)
+        // if(player.level == 1){
+        //     var startPointY = 240
+        //     endpointY = 730 - 160 
+        //     // var startPointY = gridSize * 3
+        //     // endpointY = 730 - gridSize * 2 
+        // }
+        // else if(player.level == 2){
+        //     var startPointY = gridSize * 2
+        //     endpointY = 730 - gridSize
+        // }
+        // else if(player.level == 3){
+        //     var startPointY = gridSize
+        //     endpointY = 730
+        // }
+        for(i = gridSize; i < endpointY; i += gridSize){
+            for(j = startpointX; j < endpointX; j += gridSize){
+                gameBoard.push(new eachGrid(j, i))
+            }
         }
-    }
 })()
 
 function drawBoard(){
@@ -260,23 +252,23 @@ function drawBoard(){
     ctx.fillText(TotalsunValue, 47, 88)
 }
 
-var sunflowerCard = {
+var peashooterCard = {
     x : 10,
     y : 105,
     height : 90,
     width : 65,
     fill : 'green',
-    sunValue : 50
+    sunValue : 100
 }
 
 
-var peashooterCard = {
+var sunflowerCard = {
     x : 10,
     y : 215,
     height : 90,
     width : 65,
     fill : 'green',
-    sunValue : 100
+    sunValue : 50
 }
 
 var snowPeashooterCard = {
@@ -289,23 +281,23 @@ var snowPeashooterCard = {
 }
 
 function plantSelecter(){
-    if(checkCollision(sunflowerCard, mouseActivity) && mouseActivity.clicked ){
+    if(checkCollision(peashooterCard, mouseActivity) && mouseActivity.clicked ){
         selectedPlant = 0
     }
-    if(checkCollision(peashooterCard, mouseActivity) && mouseActivity.clicked ){
+    if(checkCollision(sunflowerCard, mouseActivity) && mouseActivity.clicked ){
         selectedPlant = 1
     }
     if(checkCollision(snowPeashooterCard, mouseActivity) && mouseActivity.clicked ){
         selectedPlant = 2
     }
     if(selectedPlant == 0){
-        sunflowerCard.fill = 'black'
-        peashooterCard.fill = 'green'
+        peashooterCard.fill = 'black'
+        sunflowerCard.fill = 'green'
         snowPeashooterCard.fill = 'green'
     }
     else if(selectedPlant == 1){
-        peashooterCard.fill = 'black'
-        sunflowerCard.fill = 'green'
+        sunflowerCard.fill = 'black'
+        peashooterCard.fill = 'green'
         snowPeashooterCard.fill = 'green'
     }
     else if(selectedPlant == 2){
@@ -322,13 +314,17 @@ function plantSelecter(){
     ctx.fillStyle = peashooterCard.fill
     ctx.fillRect(peashooterCard.x, peashooterCard.y, peashooterCard.width + 10, peashooterCard.height + 10)
     ctx.drawImage(card_peashooter,peashooterCard.x + 5, peashooterCard.y + 5, peashooterCard.width, peashooterCard.height)
-    ctx.fillStyle = snowPeashooterCard.fill
-    ctx.fillRect(snowPeashooterCard.x, snowPeashooterCard.y, snowPeashooterCard.width + 10, snowPeashooterCard.height + 10)
-    ctx.drawImage(card_snowPeashooter,snowPeashooterCard.x + 5, snowPeashooterCard.y + 5, snowPeashooterCard.width, snowPeashooterCard.height)
+    
+    if(player.level != 1){
     ctx.fillStyle = sunflowerCard.fill
     ctx.fillRect(sunflowerCard.x, sunflowerCard.y, sunflowerCard.width + 10, sunflowerCard.height + 10)
     ctx.drawImage(card_sunflower,sunflowerCard.x + 5, sunflowerCard.y + 5, sunflowerCard.width, sunflowerCard.height)
-
+    
+    ctx.fillStyle = snowPeashooterCard.fill
+    ctx.fillRect(snowPeashooterCard.x, snowPeashooterCard.y, snowPeashooterCard.width + 10, snowPeashooterCard.height + 10)
+    ctx.drawImage(card_snowPeashooter,snowPeashooterCard.x + 5, snowPeashooterCard.y + 5, snowPeashooterCard.width, snowPeashooterCard.height)
+    }
+    
 }
 
 function Plant(x, y){
@@ -341,7 +337,7 @@ function Plant(x, y){
     this.type = selectedPlant
     this.plantCount = 0
     // this.type = plantVariety[0]
-    if(this.type == 0){
+    if(this.type == 1){
         this.frameStart = 0
         this.frameEnd = 17
         this.imgheight = 74
@@ -353,16 +349,28 @@ function Plant(x, y){
         this.imgheight = 73
         this.imgwidth = 73
     }
+    if(player.level == 1){
+        var startpointY = gridSize * 3
+        endpointY = 730 - gridSize * 2 
+    }
+    else if(player.level == 2){
+        var startpointY = gridSize * 2
+        endpointY = 730 - gridSize
+    }
+    else if(player.level == 3){
+        var startpointY = gridSize
+        endpointY = 730
+    }
 
     this.draw = function(){
-        if(this.x > startpointX && this.x < endpointX && this.y >= gridSize && this.y < endpointY){
+        if(this.x > startpointX && this.x < endpointX && this.y >= startpointY && this.y < endpointY){
             if(this.type == 0){
+            ctx.drawImage(peashooter,this.frameStart * this.imgwidth, 0, this.imgwidth, this.imgheight, this.x , this.y + (this.height / 5), this.width / 1.5, this.height / 1.5)
+            }
+            else if(this.type == 1){
             // ctx.fillStyle = 'black'
             // ctx.fillRect(this.x, this.y, this.width, this.height)
             ctx.drawImage(sunflower,this.frameStart * this.imgwidth, 0, this.imgwidth, this.imgheight, this.x , this.y + (this.height / 5), this.width / 1.5, this.height / 1.5)
-            }
-            if(this.type == 1){
-            ctx.drawImage(peashooter,this.frameStart * this.imgwidth, 0, this.imgwidth, this.imgheight, this.x , this.y + (this.height / 5), this.width / 1.5, this.height / 1.5)
             }
             else if(this.type == 2){
             ctx.drawImage(snowPeashooter,this.frameStart * this.imgwidth, 0, this.imgwidth, this.imgheight, this.x , this.y + (this.height / 5), this.width / 1.5, this.height / 1.5)
@@ -380,7 +388,7 @@ function Plant(x, y){
                 this.frameStart = 1
             }
         }
-        if(this.type == 0){
+        if(this.type == 1){
             if(this.plantCount % 800 == 0){
                 suns.push(new Sun(this.x, this.y))
             }
@@ -488,7 +496,7 @@ function Pea(type, x, y){
     this.x = x;
     this.y = y;
     this.velocity = 5
-    if(type == 1){
+    if(type == 0){
         this.peaType = pea
         this.power = 5
     }

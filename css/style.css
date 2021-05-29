@@ -135,7 +135,7 @@ body{
 #game{
     width: 1000px;
     height: 500px;
-    background-image: url(../assets/bgLevel2.png);
+    /* background-image: url(../assets/background_img/bgLevel3.png); */
     overflow: hidden;
     background-repeat: no-repeat;
     background-size: cover;
