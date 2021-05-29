@@ -53,10 +53,89 @@ body{
     display: block;
 }
 
+.main-menu{
+    /* display: none; */
+    background-image: url(../assets/Main_Menu.png);
+    width: 970px;
+    height: 470px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: top;
+    transform: translate(calc(50% - 485px),-104%);
+    font-family: fantasy;
+    font-size: 30px;
+    text-align: center;
+    padding-top: 400px;
+}
+
+#lvl1{
+    background-image: url(../assets/levels/level1.PNG);
+    width: calc(389px / 1.5);
+    height: calc(267px / 1.5);
+    margin-top: -320px;
+    margin-left: 480px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: top;
+}
+
+#lvl2{
+    background-image: url(../assets/levels/level2.PNG);
+    width: calc(389px / 1.9);
+    height: calc(267px / 1.9);
+    margin-top: -65px;
+    margin-left: 490px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: top;
+}
+
+#lvl3{
+    background-image: url(../assets/levels/level3.PNG);
+    width: calc(389px / 2.7);
+    height: calc(267px / 2.7);
+    margin-top: -50px;
+    margin-left: 510px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: top;
+}
+
+#htp{
+    background-image: url(../assets/levels/howToPlay.png);
+    width: 145px;
+    height: 172px;
+    margin-top: -110px;
+    margin-left: 290px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: top;
+}
+
+#htp:hover{
+    background-size: 140px;
+    cursor: pointer;
+}
+
+#lvl1:hover{
+    background-size: 250px;
+    cursor: pointer;
+}
+
+#lvl2:hover{
+    background-size: 200px;
+    cursor: pointer;
+}
+
+#lvl3:hover{
+    background-size: 140px;
+    cursor: pointer;
+}
+
 #game{
     width: 1000px;
     height: 500px;
-    background-image: url(../assets/Background_0.jpg);
+    background-image: url(../assets/bgLevel2.png);
     overflow: hidden;
     background-repeat: no-repeat;
     background-size: cover;

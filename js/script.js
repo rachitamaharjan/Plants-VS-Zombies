@@ -8,12 +8,17 @@ var mouseActivity = {
 }
 
 var player = {
-    playing : true,
+    playing : false,
     endgame : false,
 }
 
 var count = 0
 var popUp = document.getElementsByClassName('pop-up')
+var mainmenu = document.getElementsByClassName('main-menu')
+var button_level1 = document.getElementById('lvl1')
+var button_level2 = document.getElementById('lvl2')
+var button_level3 = document.getElementById('lvl3')
+
 var canvas = document.getElementById('game')
 var containerPos = (document.getElementsByClassName('main-container-wrapper'))[0]
 var ctx = canvas.getContext('2d')
@@ -91,6 +96,42 @@ sun.src = "./assets/sun.png"
 
 var sunBoard = new Image()
 sunBoard.src = "./assets/sunboard.png"
+var startGame = popUp[0].addEventListener('click', function(){
+
+    popUp[0].id = 'invisible'
+    mainmenu[0].id = 'visible'
+    console.log('mm',mainmenu[0].id)
+    // base.style.display = 'none'
+    // player.speed = 5
+    // gameArea.innerHTML = ''
+    // player.playing = true
+    // player.score = 0
+    // createPipeRow('pipe-row1')
+    // createPipeRow('pipe-row2')
+    // createPipeRow('pipe-row3')
+
+    // mainContainer[0].appendChild(playerBird)
+    // playerBird.style.transform = "unset"
+    // window.requestAnimationFrame(loop);
+})
+
+var level1 = button_level1.addEventListener('click', function(){
+    mainmenu[0].id = 'invisible'
+    player.playing = true
+    window.requestAnimationFrame(loop);
+})
+
+var level2 = button_level2.addEventListener('click', function(){
+    mainmenu[0].id = 'invisible'
+    player.playing = true
+    window.requestAnimationFrame(loop);
+})
+
+var level3 = button_level3.addEventListener('click', function(){
+    mainmenu[0].id = 'invisible'
+    player.playing = true
+    window.requestAnimationFrame(loop);
+})
 
 // event listeners
 canvas.addEventListener('mousemove',function(e){
@@ -164,23 +205,6 @@ canvas.addEventListener('click', function(e){
 // var gameArea = document.getElementById('game-area')
 // var blockerPipes = document.getElementsByClassName('blocker-pipes')
 
-
-var startGame = popUp[0].addEventListener('click', function(){
-
-    popUp[0].id = 'invisible'
-    // base.style.display = 'none'
-    // player.speed = 5
-    // gameArea.innerHTML = ''
-    // player.playing = true
-    // player.score = 0
-    // createPipeRow('pipe-row1')
-    // createPipeRow('pipe-row2')
-    // createPipeRow('pipe-row3')
-
-    // mainContainer[0].appendChild(playerBird)
-    // playerBird.style.transform = "unset"
-    window.requestAnimationFrame(loop);
-})
 
 // // click and press event listeners
 // mainContainer[0].addEventListener('click', flapUp)
