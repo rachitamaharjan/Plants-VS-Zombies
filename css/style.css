@@ -117,6 +117,61 @@ body{
     cursor: pointer;
 }
 
+#btn-continue{
+    display: block;
+    background-image: url(../assets/levels/continue-btn.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: bottom;
+    height: 35px;
+    width: 125px;
+    position: absolute;
+    left: calc(50% - 130px);
+    top: calc(50% + 70px);
+}
+
+.btn-restart{
+    display: block;
+    background-image: url(../assets/levels/restart-btn.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: bottom;
+    height: 40px;
+    width: 190px;
+    position: absolute;
+    left: calc(50% - 75px);
+    top: 500px;
+}
+
+#btn-mainmenu{
+    display: block;
+    background-image: url(../assets/levels/mainmenu-btn.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    height: 35px;
+    width: 145px;
+    position: absolute;
+    left: calc(50% + 10px);
+    top: calc(50% + 72px);
+}
+
+#btn-continue:hover{
+    background-size: 110px;
+    cursor: pointer;
+}
+
+.btn-restart:hover{
+    background-size: 150px;
+    cursor: pointer;
+}
+
+#btn-mainmenu:hover{
+    background-size: 130px;
+    cursor: pointer;
+}
+
+
 #game{
     width: 1000px;
     height: 500px;

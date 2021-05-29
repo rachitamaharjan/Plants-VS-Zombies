@@ -113,7 +113,7 @@ function drawSun(){
         suns[i].change()
 
         if(suns[i] && mouseActivity.x && mouseActivity.y && checkCollision(suns[i], mouseActivity)){
-            console.log('yes')
+            // console.log('yes')
             TotalsunValue = TotalsunValue + suns[i].value
             suns.splice(i, 1)
             i --
