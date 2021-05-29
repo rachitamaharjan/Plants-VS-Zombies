@@ -28,6 +28,9 @@ var plants = [];
 var plantVariety = [];
 var selectedPlant = undefined
 // peashooter
+var PvZ = new Image()
+PvZ.src = "./assets/PvZ.png"
+
 var card_peashooter = new Image()
 card_peashooter.src = "./assets/cards/card_peashooter.png"
 var peashooter = new Image()
@@ -139,7 +142,7 @@ canvas.addEventListener('click', function(e){
             return
         }
     }
-    if (TotalsunValue >= sunVal){
+    if ((TotalsunValue >= sunVal) && posx > startpointX && posx < endpointX && posy >= gridSize){
         plants.push(new Plant(posx, posy))
         TotalsunValue = TotalsunValue - sunVal
         // console.log('okk',posx,posy,e.x,e.y)
@@ -520,8 +523,10 @@ function Sun(x, y){
     // console.log('ok')
 
     // var blockerPipes = document.getElementsByClassName('blocker-pipes')
-    
-    if (player.playing){
+    if(! player.playing){
+        ctx.drawImage(PvZ, canvas.x, canvas.y, 4267 / 10, 2500 / 10)
+    }
+    else if (player.playing){
         ctx.clearRect(0,0,canvas.width, canvas.height)
         // ctx.fillStyle = 'gray';
         drawBoard()
@@ -547,7 +552,7 @@ function Sun(x, y){
             ctx.shadowOffsetY = 10;
             ctx.shadowColor = 'black';
             ctx.shadowBlur = 50;
-        ctx.drawImage(brainPlate, canvas.width / 3 + 100, canvas.height / 3 + 220, 713 / 4, 287 / 4)
+            ctx.drawImage(brainPlate, canvas.width / 3 + 100, canvas.height / 3 + 220, 713 / 4, 287 / 4)
             ctx.drawImage(zombiesWon, canvas.width / 3, canvas.height / 8, 564 / 1.5, 468 / 1.5)
     }
 })()

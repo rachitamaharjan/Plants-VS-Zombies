@@ -1,3 +1,10 @@
+body{
+    background-image: url('../assets/bg.jpg');
+    overflow: hidden;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
 .main-container-wrapper{
     width: 1000px;
     /* width: 1000px; */
