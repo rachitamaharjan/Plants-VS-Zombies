@@ -225,6 +225,60 @@ body{
     top: calc(50% + 75px);
 }
 
+.htp-real{
+    width: 970px;
+    height: 475px;
+    background-image: url(../assets/htp.png);
+    overflow: hidden;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: right;
+    margin-top: 100px;
+    position: absolute;
+    /* left: calc(50% - 470px); */
+    /* top: calc(50% - 10px); */
+    /* transform: translate(calc(50% - 500px),-101%); */
+    transform: translate(calc(50% - 470px),-223%);
+}
+
+.htp-close{
+    display: block;
+    background-image: url(../assets/levels/mainmenu-btn.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    height: 1135px;
+    width: 145px;
+    position: absolute;
+    left: calc(50% - 80px);
+    top: calc(50% - 360px);
+}
+
+.htp-zombie{
+    display: block;
+    background-image: url(../assets/htp_zombie.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    height: 851px;
+    width: 652px;
+    position: absolute;
+    left: calc(50% - 310px);
+    top: calc(50% - 415px);
+}
+
+.btn-close{
+    background-image: url(../assets/btn-close.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    height: 70px;
+    width: 70px;
+    position: absolute;
+    left: calc(50% + 240px);
+    top: calc(50% - 210px);
+}
+
 .btn-continue:hover{
     background-size: 110px;
     cursor: pointer;
@@ -235,7 +289,7 @@ body{
     cursor: pointer;
 }
 
-.btn-mainmenu:hover{
+.btn-mainmenu:hover, .htp-close:hover{
     background-size: 130px;
     cursor: pointer;
 }
@@ -247,6 +301,11 @@ body{
 
 .btn-play:hover{
     background-size: 83px;
+    cursor: pointer;
+}
+
+.btn-close:hover{
+    background-size: 65px;
     cursor: pointer;
 }
 

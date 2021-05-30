@@ -30,6 +30,12 @@ var restartBtn = document.getElementsByClassName('btn-restart')[0]
 var mainmenuBtn = document.getElementsByClassName('btn-mainmenu')[0]
 var surrenderMsg = document.getElementsByClassName('final-msg')[0]
 
+var howToPlay = document.getElementById('htp')
+var htpReal = document.getElementsByClassName('htp-real')[0]
+var htpZombie = document.getElementsByClassName('htp-zombie')[0]
+var btnClose = document.getElementsByClassName('btn-close')[0]
+var htpClose = document.getElementsByClassName('htp-close')[0]
+
 var canvas = document.getElementById('game')
 var containerPos = (document.getElementsByClassName('main-container-wrapper'))[0]
 var ctx = canvas.getContext('2d')
@@ -53,18 +59,6 @@ var bgImages = ["url('./assets/background_img/bgLevel1.png')", "url('./assets/ba
 // bg
 var PvZ = new Image()
 PvZ.src = "./assets/PvZ.png"
-
-// level complete
-// var levelCompletenew Image()
-// levelCompletec = "./assets/levels/levelCompleteg"
-
-// surrender message
-// var surrenderMsg = new Image()
-// surrenderMsg.src = "./assets/surrenderMsg.png"
-
-// level pause
-// var gamePaused = new Image()
-// gamePaused.src = "./assets/levels/gamePaused.png"
 
 // level board
 var lvl1Board = new Image()
@@ -189,7 +183,26 @@ var startGame = popUp[0].addEventListener('click', function(){
     introTheme.loop = true
     popUp[0].id = 'invisible'
     mainmenu[0].id = 'visible'
-    console.log('mm',mainmenu[0].id)
+})
+
+howToPlay.addEventListener('click', function(){
+    select.play()
+    htpReal.id = 'visible'
+    htpZombie.id = 'visible'
+    btnClose.id = 'visible'
+    htpClose.id = 'visible'
+})
+
+btnClose.addEventListener('click', function(){
+    select.play()
+    htpZombie.id = 'invisible'
+    btnClose.id = 'invisible'
+})
+
+htpClose.addEventListener('click', function(){
+    select.play()
+    htpReal.id = 'invisible'
+    htpClose.id = 'invisible'
 })
 
 button_level1.addEventListener('click', function(){
@@ -284,6 +297,8 @@ continueBtn.addEventListener('click', function(){
     player.endgame = false
     player.level += 1
     if(player.level > 3){
+        player.level = 0
+        player.playing = false
         showWinBoard()
     }
     player.playing = true
@@ -799,6 +814,7 @@ function Sun(x, y){
 function showWinBoard(){
     // ctx2.clearRect(0,0,canvas.width, canvas.height)
     zombie_groan.play()
+    player.playing = false
     overlay.style.display = 'block'
     ctx2.shadowOffsetX = 10;
     ctx2.shadowOffsetY = 10;
@@ -808,10 +824,10 @@ function showWinBoard(){
     surrenderMsg.id = 'visible'
     mainmenuBtn.id = 'visible'
     pauseBtn.id = 'invisible'
+    gamePaused.id = 'invisible'
     mainmenuBtn.style.top = '428px'
     mainmenuBtn.style.height = '70px'
     mainmenuBtn.style.width = '170px'
-    player.playing = false
 }
 
 
