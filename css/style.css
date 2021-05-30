@@ -117,7 +117,7 @@ body{
     cursor: pointer;
 }
 
-#btn-continue{
+.btn-continue{
     display: block;
     background-image: url(../assets/levels/continue-btn.png);
     background-repeat: no-repeat;
@@ -136,14 +136,18 @@ body{
     background-repeat: no-repeat;
     background-size: cover;
     background-position: bottom;
-    height: 40px;
-    width: 190px;
+    /* height: 40px; */
+    /* width: 190px; */
+    height: 35px;
+    width: 145px;
     position: absolute;
-    left: calc(50% - 75px);
-    top: 500px;
+    left: calc(50% - 150px);
+    /* top: 500px; */
+    /* left: calc(50% + 10px); */
+    top: calc(50% + 150px);
 }
 
-#btn-mainmenu{
+.btn-mainmenu{
     display: block;
     background-image: url(../assets/levels/mainmenu-btn.png);
     background-repeat: no-repeat;
@@ -156,7 +160,7 @@ body{
     top: calc(50% + 72px);
 }
 
-#btn-continue:hover{
+.btn-continue:hover{
     background-size: 110px;
     cursor: pointer;
 }
@@ -166,7 +170,7 @@ body{
     cursor: pointer;
 }
 
-#btn-mainmenu:hover{
+.btn-mainmenu:hover{
     background-size: 130px;
     cursor: pointer;
 }

@@ -21,9 +21,9 @@ var button_level2 = document.getElementById('lvl2')
 var button_level3 = document.getElementById('lvl3')
 
 var levelCompleteBox = document.getElementsByClassName('level-complete')
-var continueBtn = document.getElementById('btn-continue')
+var continueBtn = document.getElementsByClassName('btn-continue')[0]
 var restartBtn = document.getElementsByClassName('btn-restart')[0]
-var mainmenuBtn = document.getElementById('btn-mainmenu')
+var mainmenuBtn = document.getElementsByClassName('btn-mainmenu')[0]
 
 var canvas = document.getElementById('game')
 var containerPos = (document.getElementsByClassName('main-container-wrapper'))[0]
@@ -48,9 +48,17 @@ var bgImages = ["url('./assets/background_img/bgLevel1.png')", "url('./assets/ba
 var PvZ = new Image()
 PvZ.src = "./assets/PvZ.png"
 
+// level board
+var levelBoard = new Image()
+levelBoard.src = "./assets/levels/levelComplete.png"
+
 // level complete
-var levelComplete = new Image()
-levelComplete.src = "./assets/levels/levelComplete.png"
+var lvl1Board = new Image()
+lvl1Board.src = "./assets/boards/lvl1-board.png"
+var lvl2Board = new Image()
+lvl2Board.src = "./assets/boards/lvl2-board.png"
+var lvl3Board = new Image()
+lvl3Board.src = "./assets/boards/lvl3-board.png"
 
 // peashooter
 var card_peashooter = new Image()
@@ -168,6 +176,7 @@ restartBtn.addEventListener('click', function(){
     zombies = []
     overlay.style.display = 'none'
     restartBtn.id = 'invisible'
+    mainmenuBtn.id = 'invisible'
     player.endgame = false
     player.playing = true
     window.requestAnimationFrame(loop);
@@ -183,7 +192,8 @@ continueBtn.addEventListener('click', function(){
     TotalsunValue = 200;
     suns = []
     zombies = []
-    levelCompleteBox[0].id = 'invisible'
+    continueBtn.id = 'invisible'
+    mainmenuBtn.id = 'invisible'
     overlay.style.display = 'none'
     restartBtn.id = 'invisible'
     player.endgame = false
@@ -204,7 +214,19 @@ continueBtn.addEventListener('click', function(){
 mainmenuBtn.addEventListener('click', function(){
     overlay.style.display = 'none'
     mainmenu[0].id = 'visible'
-    levelCompleteBox[0].id = 'invisible'
+    continueBtn.id = 'invisible'
+    mainmenuBtn.id = 'invisible'    
+    restartBtn.id = 'invisible'
+    if(mainmenuBtn.style.top == '439px'){
+        mainmenuBtn.style.top = '500px'
+        mainmenuBtn.style.height = '70px'
+        mainmenuBtn.style.width = '170px'
+    }
+    else{
+        mainmenuBtn.style.top = '439px'
+        mainmenuBtn.style.height = '35px'
+        mainmenuBtn.style.width = '145px'
+    }
     zombieCount = 0
     plants = []
     count = 0
@@ -324,6 +346,15 @@ function drawBoard(){
     ctx.textAlign = "center"; 
     ctx.font = '20px Arial bold'
     ctx.fillText(TotalsunValue, 47, 88)
+    if(player.level == 1){
+        ctx.drawImage(lvl1Board, canvas.width - 195 , 0 , 345 / 2, 121 / 2)
+    }
+    else if(player.level == 2){
+        ctx.drawImage(lvl2Board, canvas.width - 195 , 0 , 345 / 2, 121 / 2)
+    }
+    else if(player.level == 3){
+        ctx.drawImage(lvl3Board, canvas.width - 195 , 0 , 345 / 2, 121 / 2)
+    }
 }
 
 var peashooterCard = {
@@ -653,7 +684,11 @@ function loop(){
             ctx2.shadowColor = 'black';
             ctx2.shadowBlur = 5;
             ctx2.drawImage(levelComplete, canvas.width / 2 - 150, canvas.height / 2 - 150, 326, 300)
-            levelCompleteBox[0].id = 'visible'
+            continueBtn.id = 'visible'
+            mainmenuBtn.id = 'visible'
+            mainmenuBtn.style.top = '439px'
+            mainmenuBtn.style.height = '35px'
+            mainmenuBtn.style.width = '145px'
             player.playing = false
         }
         window.requestAnimationFrame(loop);
@@ -668,6 +703,10 @@ function loop(){
         ctx2.shadowBlur = 5;
         // ctx2.drawImage(brainPlate, canvas.width / 3 + 100, canvas.height / 3 + 220, 713 / 4, 287 / 4)
         restartBtn.id = 'visible'
+        mainmenuBtn.id = 'visible'
+        mainmenuBtn.style.top = '500px'
+        mainmenuBtn.style.height = '70px'
+        mainmenuBtn.style.width = '170px'
         ctx2.drawImage(zombiesWon, canvas.width / 3, canvas.height / 8, 564 / 1.5, 468 / 1.5)
     }
 }
