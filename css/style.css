@@ -160,6 +160,32 @@ body{
     top: calc(50% + 72px);
 }
 
+.btn-pause{
+    display: block;
+    background-image: url(../assets/levels/menu-btn.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    height: 30px;
+    width: 100px;
+    position: absolute;
+    left: calc(50% + 380px);
+    top: calc(50% + 180px);
+}
+
+.btn-play{
+    display: block;
+    background-image: url(../assets/levels/play-btn.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    height: 29px;
+    width: 100px;
+    position: absolute;
+    left: calc(50% - 120px);
+    top: calc(50% + 75px);
+}
+
 .btn-continue:hover{
     background-size: 110px;
     cursor: pointer;
@@ -172,6 +198,16 @@ body{
 
 .btn-mainmenu:hover{
     background-size: 130px;
+    cursor: pointer;
+}
+
+.btn-pause:hover{
+    background-size: 90px;
+    cursor: pointer;
+}
+
+.btn-play:hover{
+    background-size: 83px;
     cursor: pointer;
 }
 

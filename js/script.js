@@ -19,6 +19,8 @@ var mainmenu = document.getElementsByClassName('main-menu')
 var button_level1 = document.getElementById('lvl1')
 var button_level2 = document.getElementById('lvl2')
 var button_level3 = document.getElementById('lvl3')
+var pauseBtn = document.getElementsByClassName('btn-pause')[0]
+var keepPlayingBtn = document.getElementsByClassName('btn-play')[0]
 
 var levelCompleteBox = document.getElementsByClassName('level-complete')
 var continueBtn = document.getElementsByClassName('btn-continue')[0]
@@ -48,11 +50,15 @@ var bgImages = ["url('./assets/background_img/bgLevel1.png')", "url('./assets/ba
 var PvZ = new Image()
 PvZ.src = "./assets/PvZ.png"
 
-// level board
-var levelBoard = new Image()
-levelBoard.src = "./assets/levels/levelComplete.png"
-
 // level complete
+var levelComplete = new Image()
+levelComplete.src = "./assets/levels/levelComplete.png"
+
+// level pause
+var gamePaused = new Image()
+gamePaused.src = "./assets/levels/gamePaused.png"
+
+// level board
 var lvl1Board = new Image()
 lvl1Board.src = "./assets/boards/lvl1-board.png"
 var lvl2Board = new Image()
@@ -203,13 +209,6 @@ continueBtn.addEventListener('click', function(){
     window.requestAnimationFrame(loop);
 })
 
-// continueBtn.addEventListener('click', function(){
-//     overlay.style.display = 'none'
-//     levelCompleteBox[0].id = 'invisible'
-//     player.playing = true
-//     zombieCount = 0
-//     window.requestAnimationFrame(loop);
-// })
 
 mainmenuBtn.addEventListener('click', function(){
     overlay.style.display = 'none'
@@ -217,6 +216,7 @@ mainmenuBtn.addEventListener('click', function(){
     continueBtn.id = 'invisible'
     mainmenuBtn.id = 'invisible'    
     restartBtn.id = 'invisible'
+    keepPlayingBtn.id = 'invisible'
     if(mainmenuBtn.style.top == '439px'){
         mainmenuBtn.style.top = '500px'
         mainmenuBtn.style.height = '70px'
@@ -237,6 +237,33 @@ mainmenuBtn.addEventListener('click', function(){
     suns = []
     zombies = []
     player.endgame = false
+})
+
+pauseBtn.addEventListener('click', function(){
+    // ctx2.clearRect(0,0,canvas.width, canvas.height)
+    overlay.style.display = 'block'
+    ctx2.shadowOffsetX = 10;
+    ctx2.shadowOffsetY = 10;
+    ctx2.shadowColor = 'black';
+    ctx2.shadowBlur = 5;
+    ctx2.drawImage(gamePaused, canvas.width / 2 - 150, canvas.height / 2 - 150, 326, 300)
+    keepPlayingBtn.id = 'visible'
+    mainmenuBtn.id = 'visible'
+    pauseBtn.id = 'invisible'
+    mainmenuBtn.style.top = '439px'
+    mainmenuBtn.style.height = '35px'
+    mainmenuBtn.style.width = '145px'
+    player.playing = false
+})
+
+keepPlayingBtn.addEventListener('click', function(){
+    overlay.style.display = 'none'
+    pauseBtn.id = 'visible'
+    player.playing = true
+    keepPlayingBtn.id = 'invisible'
+    mainmenuBtn.id = 'invisible'
+    // zombieCount = 0
+    window.requestAnimationFrame(loop);
 })
 
 canvas.addEventListener('mousemove',function(e){
@@ -346,6 +373,7 @@ function drawBoard(){
     ctx.textAlign = "center"; 
     ctx.font = '20px Arial bold'
     ctx.fillText(TotalsunValue, 47, 88)
+    pauseBtn.id = 'visible'
     if(player.level == 1){
         ctx.drawImage(lvl1Board, canvas.width - 195 , 0 , 345 / 2, 121 / 2)
     }
@@ -686,6 +714,7 @@ function loop(){
             ctx2.drawImage(levelComplete, canvas.width / 2 - 150, canvas.height / 2 - 150, 326, 300)
             continueBtn.id = 'visible'
             mainmenuBtn.id = 'visible'
+            pauseBtn.id = 'invisible'
             mainmenuBtn.style.top = '439px'
             mainmenuBtn.style.height = '35px'
             mainmenuBtn.style.width = '145px'
@@ -704,6 +733,7 @@ function loop(){
         // ctx2.drawImage(brainPlate, canvas.width / 3 + 100, canvas.height / 3 + 220, 713 / 4, 287 / 4)
         restartBtn.id = 'visible'
         mainmenuBtn.id = 'visible'
+        pauseBtn.id = 'invisible'
         mainmenuBtn.style.top = '500px'
         mainmenuBtn.style.height = '70px'
         mainmenuBtn.style.width = '170px'
