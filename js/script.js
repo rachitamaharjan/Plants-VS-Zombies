@@ -322,7 +322,7 @@ mainmenuBtn.addEventListener('click', function(){
     gamePaused.id = 'invisible'
     surrenderMsg.id = 'invisible'
     if(mainmenuBtn.style.top == '438px'){
-        mainmenuBtn.style.top = '498px'
+        mainmenuBtn.style.top = ' 500px'
         mainmenuBtn.style.height = '70px'
         mainmenuBtn.style.width = '170px'
     }
@@ -883,7 +883,7 @@ function loop(){
         restartBtn.id = 'visible'
         mainmenuBtn.id = 'visible'
         pauseBtn.id = 'invisible'
-        mainmenuBtn.style.top = '498px'
+        mainmenuBtn.style.top = ' 500px'
         mainmenuBtn.style.height = '70px'
         mainmenuBtn.style.width = '170px'
         ctx2.drawImage(zombiesWon, canvas.width / 3, canvas.height / 8, 564 / 1.5, 468 / 1.5)
