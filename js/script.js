@@ -28,6 +28,7 @@ var levelComplete = document.getElementsByClassName('level-complete')[0]
 var continueBtn = document.getElementsByClassName('btn-continue')[0]
 var restartBtn = document.getElementsByClassName('btn-restart')[0]
 var mainmenuBtn = document.getElementsByClassName('btn-mainmenu')[0]
+var surrenderMsg = document.getElementsByClassName('final-msg')[0]
 
 var canvas = document.getElementById('game')
 var containerPos = (document.getElementsByClassName('main-container-wrapper'))[0]
@@ -58,8 +59,8 @@ PvZ.src = "./assets/PvZ.png"
 // levelCompletec = "./assets/levels/levelCompleteg"
 
 // surrender message
-var surrenderMsg = new Image()
-surrenderMsg.src = "./assets/surrenderMsg.png"
+// var surrenderMsg = new Image()
+// surrenderMsg.src = "./assets/surrenderMsg.png"
 
 // level pause
 // var gamePaused = new Image()
@@ -250,6 +251,7 @@ restartBtn.addEventListener('click', function(){
     mainmenuBtn.id = 'invisible'
     gamePaused.id = 'invisible'
     levelComplete.id = 'invisible'
+    surrenderMsg.id = 'invisible'
     player.endgame = false
     player.playing = true
     window.requestAnimationFrame(loop);
@@ -276,6 +278,7 @@ continueBtn.addEventListener('click', function(){
     mainmenuBtn.id = 'invisible'
     gamePaused.id = 'invisible'
     levelComplete.id = 'invisible'
+    surrenderMsg.id = 'invisible'
     overlay.style.display = 'none'
     restartBtn.id = 'invisible'
     player.endgame = false
@@ -302,6 +305,7 @@ mainmenuBtn.addEventListener('click', function(){
     keepPlayingBtn.id = 'invisible'
     levelComplete.id = 'invisible'
     gamePaused.id = 'invisible'
+    surrenderMsg.id = 'invisible'
     if(mainmenuBtn.style.top == '428px'){
         mainmenuBtn.style.top = '488px'
         mainmenuBtn.style.height = '70px'
@@ -343,6 +347,7 @@ pauseBtn.addEventListener('click', function(){
     mainmenuBtn.id = 'visible'
     pauseBtn.id = 'invisible'
     levelComplete.id = 'invisible'
+    surrenderMsg.id = 'invisible'
     mainmenuBtn.style.top = '428px'
     mainmenuBtn.style.height = '35px'
     mainmenuBtn.style.width = '145px'
@@ -357,6 +362,7 @@ keepPlayingBtn.addEventListener('click', function(){
     keepPlayingBtn.id = 'invisible'
     mainmenuBtn.id = 'invisible'
     gamePaused.id = 'invisible'
+    surrenderMsg.id = 'invisible'
     // zombieCount = 0
     window.requestAnimationFrame(loop);
 })
@@ -796,8 +802,8 @@ function showWinBoard(){
     ctx2.shadowOffsetY = 10;
     ctx2.shadowColor = 'black';
     ctx2.shadowBlur = 5;
-    ctx2.drawImage(surrenderMsg, canvas.width / 2 - 320, canvas.height / 2 - 220, 649, 438)
-    // continueBtn.id = 'visible'
+    // ctx2.drawImage(surrenderMsg, canvas.width / 2 - 320, canvas.height / 2 - 220, 649, 438)
+    surrenderMsg.id = 'visible'
     mainmenuBtn.id = 'visible'
     pauseBtn.id = 'invisible'
     mainmenuBtn.style.top = '428px'

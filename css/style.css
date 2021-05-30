@@ -143,6 +143,19 @@ body{
     top: calc(50% - 165px);
 }
 
+.final-msg{
+    display: block;
+    background-image: url(../assets/surrenderMsg.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: bottom;
+    height: 700px;
+    width: 500px;
+    position: absolute;
+    left: calc(50% - 260px);
+    top: calc(50% - 540px);
+}
+
 .btn-continue{
     display: block;
     background-image: url(../assets/levels/continue-btn.png);
