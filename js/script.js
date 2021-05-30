@@ -161,42 +161,40 @@ zombie_groan.src = 'assets/audio/zombie_groan.mp3'
 var chomp = new Audio()
 chomp.src = 'assets/audio/chomp.mp3'
 
+var zombieFinalKill = new Audio()
+zombieFinalKill.src = 'assets/audio/zombieFinalKill.mp3'
+
+var introTheme = new Audio()
+introTheme.src = 'assets/audio/introTheme.mp3'
+
+var level_select = new Audio()
+level_select.src = 'assets/audio/level_select.mp3'
+
+var theme = new Audio()
+theme.src = 'assets/audio/theme.mp3'
+
+
 function hoverPlay(){
     hover.play()
 }
 
-var startGame = popUp[0].addEventListener('click', function(){
 
-    // createGrid()
+
+// event handlers
+
+var startGame = popUp[0].addEventListener('click', function(){
     select.play()
+    introTheme.play()
+    introTheme.loop = true
     popUp[0].id = 'invisible'
     mainmenu[0].id = 'visible'
     console.log('mm',mainmenu[0].id)
-    // base.style.display = 'none'
-    // player.speed = 5
-    // gameArea.innerHTML = ''
-    // player.playing = true
-    // player.score = 0
-    // createPipeRow('pipe-row1')
-    // createPipeRow('pipe-row2')
-    // createPipeRow('pipe-row3')
-
-    // mainContainer[0].appendChild(playerBird)
-    // playerBird.style.transform = "unset"
-    // window.requestAnimationFrame(loop);
 })
-
-// if(player.level == 3){
-//     TotalsunValue = 500
-// }
-// else{
-//     TotalsunValue = 200;
-// }
-
-// event listeners
 
 button_level1.addEventListener('click', function(){
     select.play()
+    introTheme.pause()
+    introTheme.currentTime = 0
     mainmenu[0].id = 'invisible'
     player.level = 1
     TotalsunValue = 200
@@ -207,6 +205,8 @@ button_level1.addEventListener('click', function(){
 
 button_level2.addEventListener('click', function(){
     select.play()
+    introTheme.pause()
+    introTheme.currentTime = 0
     mainmenu[0].id = 'invisible'
     player.level = 2
     TotalsunValue = 200
@@ -217,6 +217,8 @@ button_level2.addEventListener('click', function(){
 
 button_level3.addEventListener('click', function(){
     select.play()
+    introTheme.pause()
+    introTheme.currentTime = 0
     mainmenu[0].id = 'invisible'
     player.level = 3
     player.playing = true
@@ -269,6 +271,7 @@ continueBtn.addEventListener('click', function(){
         TotalsunValue = 200;
     }    suns = []
     zombies = []
+    peas = []
     continueBtn.id = 'invisible'
     mainmenuBtn.id = 'invisible'
     gamePaused.id = 'invisible'
@@ -287,6 +290,8 @@ continueBtn.addEventListener('click', function(){
 
 
 mainmenuBtn.addEventListener('click', function(){
+    theme.pause()
+    theme.currentTime = 0
     select.play()
     player.loseMessage = false
     overlay.style.display = 'none'
@@ -297,13 +302,13 @@ mainmenuBtn.addEventListener('click', function(){
     keepPlayingBtn.id = 'invisible'
     levelComplete.id = 'invisible'
     gamePaused.id = 'invisible'
-    if(mainmenuBtn.style.top == '439px'){
-        mainmenuBtn.style.top = '500px'
+    if(mainmenuBtn.style.top == '428px'){
+        mainmenuBtn.style.top = '488px'
         mainmenuBtn.style.height = '70px'
         mainmenuBtn.style.width = '170px'
     }
     else{
-        mainmenuBtn.style.top = '439px'
+        mainmenuBtn.style.top = '428px'
         mainmenuBtn.style.height = '35px'
         mainmenuBtn.style.width = '145px'
     }
@@ -324,6 +329,7 @@ mainmenuBtn.addEventListener('click', function(){
 })
 
 pauseBtn.addEventListener('click', function(){
+    theme.pause()
     select.play()
     // ctx2.clearRect(0,0,canvas.width, canvas.height)
     overlay.style.display = 'block'
@@ -337,7 +343,7 @@ pauseBtn.addEventListener('click', function(){
     mainmenuBtn.id = 'visible'
     pauseBtn.id = 'invisible'
     levelComplete.id = 'invisible'
-    mainmenuBtn.style.top = '439px'
+    mainmenuBtn.style.top = '428px'
     mainmenuBtn.style.height = '35px'
     mainmenuBtn.style.width = '145px'
     player.playing = false
@@ -794,7 +800,7 @@ function showWinBoard(){
     // continueBtn.id = 'visible'
     mainmenuBtn.id = 'visible'
     pauseBtn.id = 'invisible'
-    mainmenuBtn.style.top = '439px'
+    mainmenuBtn.style.top = '428px'
     mainmenuBtn.style.height = '70px'
     mainmenuBtn.style.width = '170px'
     player.playing = false
@@ -806,11 +812,11 @@ function loop(){
     ctx2.clearRect(0,0,canvas.width, canvas.height)
 
     if(! player.playing){
-        // zombie_groan.play()
+        // theme.pause()
         ctx.drawImage(PvZ, canvas.x, canvas.y, 4267 / 10, 2500 / 10)
     }
     else if (player.playing){
-        // ctx.clearRect(0,0,canvas.width, canvas.height)
+        theme.play()
         drawBoard()
         plantSelecter()
         drawGrid()
@@ -834,7 +840,7 @@ function loop(){
             continueBtn.id = 'visible'
             mainmenuBtn.id = 'visible'
             pauseBtn.id = 'invisible'
-            mainmenuBtn.style.top = '439px'
+            mainmenuBtn.style.top = '428px'
             mainmenuBtn.style.height = '35px'
             mainmenuBtn.style.width = '145px'
             player.playing = false
@@ -843,19 +849,17 @@ function loop(){
     }
     
     if (player.loseMessage){
+        zombieFinalKill.play()
         player.playing = false
-        // player.loseMessage = false
-        // ctx2.clearRect(0,0,canvas.width, canvas.height)
         overlay.style.display = 'block'
         ctx2.shadowOffsetX = 10;
         ctx2.shadowOffsetY = 10;
         ctx2.shadowColor = 'black';
         ctx2.shadowBlur = 5;
-        // ctx2.drawImage(brainPlate, canvas.width / 3 + 100, canvas.height / 3 + 220, 713 / 4, 287 / 4)
         restartBtn.id = 'visible'
         mainmenuBtn.id = 'visible'
         pauseBtn.id = 'invisible'
-        mainmenuBtn.style.top = '500px'
+        mainmenuBtn.style.top = '488px'
         mainmenuBtn.style.height = '70px'
         mainmenuBtn.style.width = '170px'
         ctx2.drawImage(zombiesWon, canvas.width / 3, canvas.height / 8, 564 / 1.5, 468 / 1.5)
