@@ -54,7 +54,7 @@ var plants = [];
 var plantVariety = [];
 var selectedPlant = undefined
 
-var bgImages = ["url('./assets/background_img/bgLevel1.png')", "url('./assets/background_img/bgLevel2.png')", "url('./assets/background_img/bgLevel3.jpg')"]
+var bgImages = ["url('./assets/background_img/bgLevel1.png')", "url('./assets/background_img/bgLevel2.png')", "url('./assets/background_img/bgLevel3.png')"]
 
 // bg
 var PvZ = new Image()
@@ -321,13 +321,13 @@ mainmenuBtn.addEventListener('click', function(){
     levelComplete.id = 'invisible'
     gamePaused.id = 'invisible'
     surrenderMsg.id = 'invisible'
-    if(mainmenuBtn.style.top == '428px'){
-        mainmenuBtn.style.top = '488px'
+    if(mainmenuBtn.style.top == '438px'){
+        mainmenuBtn.style.top = '498px'
         mainmenuBtn.style.height = '70px'
         mainmenuBtn.style.width = '170px'
     }
     else{
-        mainmenuBtn.style.top = '428px'
+        mainmenuBtn.style.top = '438px'
         mainmenuBtn.style.height = '35px'
         mainmenuBtn.style.width = '145px'
     }
@@ -363,7 +363,7 @@ pauseBtn.addEventListener('click', function(){
     pauseBtn.id = 'invisible'
     levelComplete.id = 'invisible'
     surrenderMsg.id = 'invisible'
-    mainmenuBtn.style.top = '428px'
+    mainmenuBtn.style.top = '438px'
     mainmenuBtn.style.height = '35px'
     mainmenuBtn.style.width = '145px'
     player.playing = false
@@ -825,7 +825,7 @@ function showWinBoard(){
     mainmenuBtn.id = 'visible'
     pauseBtn.id = 'invisible'
     gamePaused.id = 'invisible'
-    mainmenuBtn.style.top = '428px'
+    mainmenuBtn.style.top = '438px'
     mainmenuBtn.style.height = '70px'
     mainmenuBtn.style.width = '170px'
 }
@@ -864,7 +864,7 @@ function loop(){
             continueBtn.id = 'visible'
             mainmenuBtn.id = 'visible'
             pauseBtn.id = 'invisible'
-            mainmenuBtn.style.top = '428px'
+            mainmenuBtn.style.top = '438px'
             mainmenuBtn.style.height = '35px'
             mainmenuBtn.style.width = '145px'
             player.playing = false
@@ -883,7 +883,7 @@ function loop(){
         restartBtn.id = 'visible'
         mainmenuBtn.id = 'visible'
         pauseBtn.id = 'invisible'
-        mainmenuBtn.style.top = '488px'
+        mainmenuBtn.style.top = '498px'
         mainmenuBtn.style.height = '70px'
         mainmenuBtn.style.width = '170px'
         ctx2.drawImage(zombiesWon, canvas.width / 3, canvas.height / 8, 564 / 1.5, 468 / 1.5)
