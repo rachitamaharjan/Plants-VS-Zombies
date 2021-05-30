@@ -778,19 +778,21 @@ function Sun(x, y){
     }
 
     this.change = function(){
-            this.y = this.y + this.velocity
-                if(count % 5 == 0){
-                    if(this.frameStart < this.frameEnd){
-                        this.frameStart = this.frameStart + 1
-                    }
-                    else{
-                        this.frameStart = 0
-                    }
+        this.y = this.y + this.velocity
+            if(count % 5 == 0){
+                if(this.frameStart < this.frameEnd){
+                    this.frameStart = this.frameStart + 1
                 }
-            groundTouchValue = Math.floor(Math.random() * 5 + 1) * gridSize
-            if (this.y == groundTouchValue){
-                this.velocity = 0
-            }            
+                else{
+                    this.frameStart = 0
+                }
+            }
+        // groundTouchValue = Math.floor(Math.random() * 5 + 1) * gridSize
+        groundTouchValue = lvl3_grid[Math.floor(Math.random() * lvl3_grid.length)]
+        console.log('kkkk',groundTouchValue)
+        if (this.y == groundTouchValue || this.y > lvl3_grid[4]){
+            this.velocity = 0
+        }        
     }
 }
 
