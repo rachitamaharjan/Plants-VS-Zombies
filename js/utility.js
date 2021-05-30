@@ -56,6 +56,7 @@ function drawZombie(){
         if(zombies[i].health <= 7){
             zombies[i].dying = true
         }
+        
         zombies[i].draw()
         zombies[i].change()
         if (zombies[i].x < stoppointX){
@@ -64,6 +65,12 @@ function drawZombie(){
             player.loseMessage = true
         }
         if(zombies[i] && zombies[i].health <= 0){
+                if(zombies[i].type == zombieVariety[0]){
+                    zombie_fall.play()
+                }
+                else{
+                    bucket_zombie_fall.play()
+                }
                 zombies.splice(i, 1)
                 totalZombies -= 1
                 i--
@@ -96,6 +103,7 @@ function drawPea(){
 
         for(j = 0; j < zombies.length; j++){
             if (peas[i] && checkCollision(peas[i], zombies[j])){
+                pea_hit.play()
                 zombies[j].health -= peas[i].power
                 peas.splice(i, 1)
                 i --

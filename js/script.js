@@ -129,9 +129,46 @@ sun.src = "./assets/sun.png"
 
 var sunBoard = new Image()
 sunBoard.src = "./assets/sunboard.png"
+
+// audio
+var select = new Audio()
+select.src = 'assets/audio/click.mp3'
+
+var hover = new Audio()
+hover.src = 'assets/audio/hover.mp3'
+
+var plantation = new Audio()
+plantation.src = 'assets/audio/plantation.mp3'
+
+var puff = new Audio()
+puff.src = 'assets/audio/puff.mp3'
+
+var pea_shoot = new Audio()
+pea_shoot.src = 'assets/audio/pea_shoot.mp3'
+
+var pea_hit = new Audio()
+pea_hit.src = 'assets/audio/pea_hit.mp3'
+
+var zombie_fall = new Audio()
+zombie_fall.src = 'assets/audio/zombie_fall.mp3'
+
+var bucket_zombie_fall = new Audio()
+bucket_zombie_fall.src = 'assets/audio/bucket_zombie_fall.mp3'
+
+var zombie_groan = new Audio()
+zombie_groan.src = 'assets/audio/zombie_groan.mp3'
+
+var chomp = new Audio()
+chomp.src = 'assets/audio/chomp.mp3'
+
+function hoverPlay(){
+    hover.play()
+}
+
 var startGame = popUp[0].addEventListener('click', function(){
 
     // createGrid()
+    select.play()
     popUp[0].id = 'invisible'
     mainmenu[0].id = 'visible'
     console.log('mm',mainmenu[0].id)
@@ -159,6 +196,7 @@ var startGame = popUp[0].addEventListener('click', function(){
 // event listeners
 
 button_level1.addEventListener('click', function(){
+    select.play()
     mainmenu[0].id = 'invisible'
     player.level = 1
     TotalsunValue = 200
@@ -168,6 +206,7 @@ button_level1.addEventListener('click', function(){
 })
 
 button_level2.addEventListener('click', function(){
+    select.play()
     mainmenu[0].id = 'invisible'
     player.level = 2
     TotalsunValue = 200
@@ -177,6 +216,7 @@ button_level2.addEventListener('click', function(){
 })
 
 button_level3.addEventListener('click', function(){
+    select.play()
     mainmenu[0].id = 'invisible'
     player.level = 3
     player.playing = true
@@ -187,6 +227,7 @@ button_level3.addEventListener('click', function(){
 
 
 restartBtn.addEventListener('click', function(){
+    select.play()
     player.loseMessage = false
     zombieCount = 0
     plants = []
@@ -213,6 +254,7 @@ restartBtn.addEventListener('click', function(){
 })
 
 continueBtn.addEventListener('click', function(){
+    select.play()
     player.loseMessage = false
     zombieCount = 0
     plants = []
@@ -245,6 +287,7 @@ continueBtn.addEventListener('click', function(){
 
 
 mainmenuBtn.addEventListener('click', function(){
+    select.play()
     player.loseMessage = false
     overlay.style.display = 'none'
     mainmenu[0].id = 'visible'
@@ -281,6 +324,7 @@ mainmenuBtn.addEventListener('click', function(){
 })
 
 pauseBtn.addEventListener('click', function(){
+    select.play()
     // ctx2.clearRect(0,0,canvas.width, canvas.height)
     overlay.style.display = 'block'
     ctx2.shadowOffsetX = 10;
@@ -300,6 +344,7 @@ pauseBtn.addEventListener('click', function(){
 })
 
 keepPlayingBtn.addEventListener('click', function(){
+    select.play()
     overlay.style.display = 'none'
     pauseBtn.id = 'visible'
     player.playing = true
@@ -367,6 +412,7 @@ canvas.addEventListener('click', function(e){
     if ((TotalsunValue >= sunVal) && posx > startpointX && posx < endpointX && posy >= startpointY  && posy < endpointY){
         console.log('planted',posy,endpointY)
         plants.push(new Plant(posx, posy))
+        plantation.play()
         TotalsunValue = TotalsunValue - sunVal
         // console.log('okk',posx,posy,e.x,e.y)
     }
@@ -459,34 +505,39 @@ var snowPeashooterCard = {
 
 function plantSelecter(){
     if(checkCollision(peashooterCard, mouseActivity) && mouseActivity.clicked ){
+        puff.play()
         selectedPlant = 0
     }
     if(checkCollision(sunflowerCard, mouseActivity) && mouseActivity.clicked ){
+        puff.play()
         selectedPlant = 1
     }
     if(checkCollision(snowPeashooterCard, mouseActivity) && mouseActivity.clicked ){
+        puff.play()
         selectedPlant = 2
+
     }
     if(selectedPlant == 0){
-        peashooterCard.fill = 'black'
-        sunflowerCard.fill = 'green'
-        snowPeashooterCard.fill = 'green'
+        peashooterCard.fill = 'green'
+        sunflowerCard.fill = 'black'
+        snowPeashooterCard.fill = 'black'
     }
     else if(selectedPlant == 1){
-        sunflowerCard.fill = 'black'
-        peashooterCard.fill = 'green'
-        snowPeashooterCard.fill = 'green'
+        sunflowerCard.fill = 'green'
+        peashooterCard.fill = 'black'
+        snowPeashooterCard.fill = 'black'
     }
     else if(selectedPlant == 2){
-        snowPeashooterCard.fill = 'black'
-        peashooterCard.fill = 'green'
-        sunflowerCard.fill = 'green'
+        snowPeashooterCard.fill = 'green'
+        peashooterCard.fill = 'black'
+        sunflowerCard.fill = 'black'
     }
     else{
-        peashooterCard.fill = 'green'
-        snowPeashooterCard.fill = 'green'
-        sunflowerCard.fill = 'green'
+        peashooterCard.fill = 'black'
+        snowPeashooterCard.fill = 'black'
+        sunflowerCard.fill = 'black'
     }
+
     ctx.lineWidth = 2
     ctx.fillStyle = peashooterCard.fill
     ctx.fillRect(peashooterCard.x, peashooterCard.y, peashooterCard.width + 10, peashooterCard.height + 10)
@@ -629,6 +680,7 @@ function Zombie(y){
             ctx.drawImage(zombie_head,(this.dieFrameStart - this.dieFrameConst) * 150, 0, 150, 186, this.x - (this.width / 1.5), this.y - (this.height / 2), this.width * 1.5, this.height * 1.5)
         }
         else if(this.attacking == true){
+            chomp.play()
             ctx.drawImage(this.type,this.attackFrameStart * this.imgwidth, 0, this.imgwidth, this.imgheight, this.x - (this.width / 1.5), this.y - (this.height / 2), this.width * 1.5, this.height * 1.5)
         }
         else{
@@ -648,6 +700,7 @@ function Zombie(y){
                     }
                 }
                 this.velocity = 0
+
             }
             else if(this.attacking == true){
                 if(count % 3 == 0){
@@ -731,6 +784,7 @@ function Sun(x, y){
 
 function showWinBoard(){
     // ctx2.clearRect(0,0,canvas.width, canvas.height)
+    zombie_groan.play()
     overlay.style.display = 'block'
     ctx2.shadowOffsetX = 10;
     ctx2.shadowOffsetY = 10;
@@ -752,6 +806,7 @@ function loop(){
     ctx2.clearRect(0,0,canvas.width, canvas.height)
 
     if(! player.playing){
+        // zombie_groan.play()
         ctx.drawImage(PvZ, canvas.x, canvas.y, 4267 / 10, 2500 / 10)
     }
     else if (player.playing){
@@ -765,6 +820,7 @@ function loop(){
         drawSun()
         count ++
         if(zombies.length == 0 && zombieCount >= zombieLimit){
+            zombie_groan.play()
             // ctx2.clearRect(0,0,canvas.width, canvas.height)
             overlay.style.display = 'block'
             ctx2.shadowOffsetX = 10;
