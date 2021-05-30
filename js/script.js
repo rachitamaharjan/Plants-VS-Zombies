@@ -10,7 +10,8 @@ var mouseActivity = {
 var player = {
     playing : false,
     endgame : false,
-    level : undefined
+    level : undefined,
+    loseMessage : false
 }
 
 var count = 0
@@ -21,8 +22,9 @@ var button_level2 = document.getElementById('lvl2')
 var button_level3 = document.getElementById('lvl3')
 var pauseBtn = document.getElementsByClassName('btn-pause')[0]
 var keepPlayingBtn = document.getElementsByClassName('btn-play')[0]
+var gamePaused = document.getElementsByClassName('game-pause')[0]
 
-var levelCompleteBox = document.getElementsByClassName('level-complete')
+var levelComplete = document.getElementsByClassName('level-complete')[0]
 var continueBtn = document.getElementsByClassName('btn-continue')[0]
 var restartBtn = document.getElementsByClassName('btn-restart')[0]
 var mainmenuBtn = document.getElementsByClassName('btn-mainmenu')[0]
@@ -35,6 +37,7 @@ var ctx2 = overlay.getContext('2d')
 canvas.width = 1000;
 canvas.height = 500;
 var gridSize = 80;
+var TotalsunValue = undefined
 var controlPanel = {
     height : gridSize,
     width : canvas.width
@@ -51,12 +54,16 @@ var PvZ = new Image()
 PvZ.src = "./assets/PvZ.png"
 
 // level complete
-var levelComplete = new Image()
-levelComplete.src = "./assets/levels/levelComplete.png"
+// var levelCompletenew Image()
+// levelCompletec = "./assets/levels/levelCompleteg"
+
+// surrender message
+var surrenderMsg = new Image()
+surrenderMsg.src = "./assets/surrenderMsg.png"
 
 // level pause
-var gamePaused = new Image()
-gamePaused.src = "./assets/levels/gamePaused.png"
+// var gamePaused = new Image()
+// gamePaused.src = "./assets/levels/gamePaused.png"
 
 // level board
 var lvl1Board = new Image()
@@ -116,7 +123,6 @@ pea.src = "./assets/pea.png"
 var snowPea = new Image()
 snowPea.src = "./assets/snowPea.png"
 
-var TotalsunValue = 200;
 var suns = []
 var sun = new Image()
 sun.src = "./assets/sun.png"
@@ -143,11 +149,19 @@ var startGame = popUp[0].addEventListener('click', function(){
     // window.requestAnimationFrame(loop);
 })
 
+// if(player.level == 3){
+//     TotalsunValue = 500
+// }
+// else{
+//     TotalsunValue = 200;
+// }
+
 // event listeners
 
 button_level1.addEventListener('click', function(){
     mainmenu[0].id = 'invisible'
     player.level = 1
+    TotalsunValue = 200
     player.playing = true
     canvas.style.backgroundImage = bgImages[player.level - 1];
     window.requestAnimationFrame(loop);
@@ -156,6 +170,7 @@ button_level1.addEventListener('click', function(){
 button_level2.addEventListener('click', function(){
     mainmenu[0].id = 'invisible'
     player.level = 2
+    TotalsunValue = 200
     player.playing = true
     canvas.style.backgroundImage = bgImages[player.level - 1];
     window.requestAnimationFrame(loop);
@@ -165,45 +180,64 @@ button_level3.addEventListener('click', function(){
     mainmenu[0].id = 'invisible'
     player.level = 3
     player.playing = true
+    TotalsunValue = 500
     canvas.style.backgroundImage = bgImages[player.level - 1];
     window.requestAnimationFrame(loop);
 })
 
 
 restartBtn.addEventListener('click', function(){
+    player.loseMessage = false
     zombieCount = 0
     plants = []
     count = 0
     gameBoard = [];
     plantVariety = [];
     selectedPlant = undefined
-    TotalsunValue = 200;
+    if(player.level == 3){
+        TotalsunValue = 500
+    }
+    else{
+        TotalsunValue = 200;
+    }
     suns = []
     zombies = []
     overlay.style.display = 'none'
     restartBtn.id = 'invisible'
     mainmenuBtn.id = 'invisible'
+    gamePaused.id = 'invisible'
+    levelComplete.id = 'invisible'
     player.endgame = false
     player.playing = true
     window.requestAnimationFrame(loop);
 })
 
 continueBtn.addEventListener('click', function(){
+    player.loseMessage = false
     zombieCount = 0
     plants = []
     count = 0
     gameBoard = [];
     plantVariety = [];
     selectedPlant = undefined
-    TotalsunValue = 200;
-    suns = []
+    if(player.level == 3){
+        TotalsunValue = 500
+    }
+    else{
+        TotalsunValue = 200;
+    }    suns = []
     zombies = []
     continueBtn.id = 'invisible'
     mainmenuBtn.id = 'invisible'
+    gamePaused.id = 'invisible'
+    levelComplete.id = 'invisible'
     overlay.style.display = 'none'
     restartBtn.id = 'invisible'
     player.endgame = false
     player.level += 1
+    if(player.level > 3){
+        showWinBoard()
+    }
     player.playing = true
     canvas.style.backgroundImage = bgImages[player.level - 1];
     window.requestAnimationFrame(loop);
@@ -211,12 +245,15 @@ continueBtn.addEventListener('click', function(){
 
 
 mainmenuBtn.addEventListener('click', function(){
+    player.loseMessage = false
     overlay.style.display = 'none'
     mainmenu[0].id = 'visible'
     continueBtn.id = 'invisible'
     mainmenuBtn.id = 'invisible'    
     restartBtn.id = 'invisible'
     keepPlayingBtn.id = 'invisible'
+    levelComplete.id = 'invisible'
+    gamePaused.id = 'invisible'
     if(mainmenuBtn.style.top == '439px'){
         mainmenuBtn.style.top = '500px'
         mainmenuBtn.style.height = '70px'
@@ -233,8 +270,12 @@ mainmenuBtn.addEventListener('click', function(){
     gameBoard = [];
     plantVariety = [];
     selectedPlant = undefined
-    TotalsunValue = 200;
-    suns = []
+    if(player.level == 3){
+        TotalsunValue = 500
+    }
+    else{
+        TotalsunValue = 200;
+    }    suns = []
     zombies = []
     player.endgame = false
 })
@@ -246,10 +287,12 @@ pauseBtn.addEventListener('click', function(){
     ctx2.shadowOffsetY = 10;
     ctx2.shadowColor = 'black';
     ctx2.shadowBlur = 5;
-    ctx2.drawImage(gamePaused, canvas.width / 2 - 150, canvas.height / 2 - 150, 326, 300)
+    gamePaused.id = 'visible'
+    // ctx2.drawImage(gamePaused, canvas.width / 2 - 150, canvas.height / 2 - 150, 326, 300)
     keepPlayingBtn.id = 'visible'
     mainmenuBtn.id = 'visible'
     pauseBtn.id = 'invisible'
+    levelComplete.id = 'invisible'
     mainmenuBtn.style.top = '439px'
     mainmenuBtn.style.height = '35px'
     mainmenuBtn.style.width = '145px'
@@ -262,6 +305,7 @@ keepPlayingBtn.addEventListener('click', function(){
     player.playing = true
     keepPlayingBtn.id = 'invisible'
     mainmenuBtn.id = 'invisible'
+    gamePaused.id = 'invisible'
     // zombieCount = 0
     window.requestAnimationFrame(loop);
 })
@@ -329,7 +373,7 @@ canvas.addEventListener('click', function(e){
 
 })
 
-function eachGrid(x, y){
+function EachGrid(x, y){
     this.height = gridSize;
     this.width = gridSize;
     this.x = x;
@@ -361,7 +405,7 @@ function createGrid(){
         }
         for(i = startpointY; i < endpointY; i += gridSize){
             for(j = startpointX; j < endpointX; j += gridSize){
-                gameBoard.push(new eachGrid(j, i))
+                gameBoard.push(new EachGrid(j, i))
             }
         }
 }
@@ -633,7 +677,7 @@ function Pea(type, x, y){
     this.height = 28;
     this.x = x;
     this.y = y;
-    this.velocity = 50
+    this.velocity = 5
     if(type == 0){
         this.peaType = pea
         this.power = 5
@@ -685,17 +729,33 @@ function Sun(x, y){
     }
 }
 
+function showWinBoard(){
+    // ctx2.clearRect(0,0,canvas.width, canvas.height)
+    overlay.style.display = 'block'
+    ctx2.shadowOffsetX = 10;
+    ctx2.shadowOffsetY = 10;
+    ctx2.shadowColor = 'black';
+    ctx2.shadowBlur = 5;
+    ctx2.drawImage(surrenderMsg, canvas.width / 2 - 320, canvas.height / 2 - 220, 649, 438)
+    // continueBtn.id = 'visible'
+    mainmenuBtn.id = 'visible'
+    pauseBtn.id = 'invisible'
+    mainmenuBtn.style.top = '439px'
+    mainmenuBtn.style.height = '70px'
+    mainmenuBtn.style.width = '170px'
+    player.playing = false
+}
 
 
 function loop(){
     ctx.clearRect(0,0,canvas.width, canvas.height)
-    // ctx2.clearRect(0,0,canvas.width, canvas.height)
+    ctx2.clearRect(0,0,canvas.width, canvas.height)
 
     if(! player.playing){
         ctx.drawImage(PvZ, canvas.x, canvas.y, 4267 / 10, 2500 / 10)
     }
     else if (player.playing){
-        ctx.clearRect(0,0,canvas.width, canvas.height)
+        // ctx.clearRect(0,0,canvas.width, canvas.height)
         drawBoard()
         plantSelecter()
         drawGrid()
@@ -705,13 +765,16 @@ function loop(){
         drawSun()
         count ++
         if(zombies.length == 0 && zombieCount >= zombieLimit){
-            ctx2.clearRect(0,0,canvas.width, canvas.height)
+            // ctx2.clearRect(0,0,canvas.width, canvas.height)
             overlay.style.display = 'block'
             ctx2.shadowOffsetX = 10;
+            zombies = []
+            zombieCount = 0
             ctx2.shadowOffsetY = 10;
             ctx2.shadowColor = 'black';
             ctx2.shadowBlur = 5;
-            ctx2.drawImage(levelComplete, canvas.width / 2 - 150, canvas.height / 2 - 150, 326, 300)
+            levelComplete.id = 'visible'
+            // ctx2.drawImage(levelCompleteanvas.width / 2 - 150, canvas.height / 2 - 150, 326, 300)
             continueBtn.id = 'visible'
             mainmenuBtn.id = 'visible'
             pauseBtn.id = 'invisible'
@@ -723,8 +786,10 @@ function loop(){
         window.requestAnimationFrame(loop);
     }
     
-    if (player.endgame == true){
-        ctx2.clearRect(0,0,canvas.width, canvas.height)
+    if (player.loseMessage){
+        player.playing = false
+        // player.loseMessage = false
+        // ctx2.clearRect(0,0,canvas.width, canvas.height)
         overlay.style.display = 'block'
         ctx2.shadowOffsetX = 10;
         ctx2.shadowOffsetY = 10;

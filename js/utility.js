@@ -59,8 +59,9 @@ function drawZombie(){
         zombies[i].draw()
         zombies[i].change()
         if (zombies[i].x < stoppointX){
-            player.playing = false
+            // player.playing = false
             player.endgame = true
+            player.loseMessage = true
         }
         if(zombies[i] && zombies[i].health <= 0){
                 zombies.splice(i, 1)

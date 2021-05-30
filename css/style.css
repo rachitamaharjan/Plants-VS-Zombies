@@ -117,6 +117,32 @@ body{
     cursor: pointer;
 }
 
+.game-pause{
+    display: block;
+    background-image: url(../assets/levels/gamePaused.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: bottom;
+    height: 300px;
+    width: 326px;
+    position: absolute;
+    left: calc(50% - 145px);
+    top: calc(50% - 165px);
+}
+
+.level-complete{
+    display: block;
+    background-image: url(../assets/levels/levelComplete.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: bottom;
+    height: 300px;
+    width: 326px;
+    position: absolute;
+    left: calc(50% - 145px);
+    top: calc(50% - 165px);
+}
+
 .btn-continue{
     display: block;
     background-image: url(../assets/levels/continue-btn.png);
