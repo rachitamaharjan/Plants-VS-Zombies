@@ -1,179 +1,3 @@
-var mouseActivity = {
-    MouseHover : false,
-    x : undefined, 
-    y : undefined,
-    height : 0.1,
-    width : 0.1,
-    clicked : false
-}
-
-var player = {
-    playing : false,
-    endgame : false,
-    level : undefined,
-    loseMessage : false
-}
-
-var count = 0
-var popUp = document.getElementsByClassName('pop-up')
-var mainmenu = document.getElementsByClassName('main-menu')
-var button_level1 = document.getElementById('lvl1')
-var button_level2 = document.getElementById('lvl2')
-var button_level3 = document.getElementById('lvl3')
-var pauseBtn = document.getElementsByClassName('btn-pause')[0]
-var keepPlayingBtn = document.getElementsByClassName('btn-play')[0]
-var gamePaused = document.getElementsByClassName('game-pause')[0]
-
-var levelComplete = document.getElementsByClassName('level-complete')[0]
-var continueBtn = document.getElementsByClassName('btn-continue')[0]
-var restartBtn = document.getElementsByClassName('btn-restart')[0]
-var mainmenuBtn = document.getElementsByClassName('btn-mainmenu')[0]
-var surrenderMsg = document.getElementsByClassName('final-msg')[0]
-
-var howToPlay = document.getElementById('htp')
-var htpReal = document.getElementsByClassName('htp-real')[0]
-var htpZombie = document.getElementsByClassName('htp-zombie')[0]
-var btnClose = document.getElementsByClassName('btn-close')[0]
-var htpClose = document.getElementsByClassName('htp-close')[0]
-
-var canvas = document.getElementById('game')
-var containerPos = (document.getElementsByClassName('main-container-wrapper'))[0]
-var ctx = canvas.getContext('2d')
-var overlay = document.getElementById('overlay')
-var ctx2 = overlay.getContext('2d')
-canvas.width = 1000;
-canvas.height = 500;
-var gridSize = 80;
-var TotalsunValue = undefined
-var controlPanel = {
-    height : gridSize,
-    width : canvas.width
-}
-var gameBoard = [];
-var plants = [];
-var plantVariety = [];
-var selectedPlant = undefined
-
-var bgImages = ["url('./assets/background_img/bgLevel1.png')", "url('./assets/background_img/bgLevel2.png')", "url('./assets/background_img/bgLevel3.png')"]
-
-// bg
-var PvZ = new Image()
-PvZ.src = "./assets/PvZ.png"
-
-// level board
-var lvl1Board = new Image()
-lvl1Board.src = "./assets/boards/lvl1-board.png"
-var lvl2Board = new Image()
-lvl2Board.src = "./assets/boards/lvl2-board.png"
-var lvl3Board = new Image()
-lvl3Board.src = "./assets/boards/lvl3-board.png"
-
-// peashooter
-var card_peashooter = new Image()
-card_peashooter.src = "./assets/cards/card_peashooter.png"
-var peashooter = new Image()
-peashooter.src = "./assets/peashooter/peashooter_idle.png"
-plantVariety.push(peashooter)
-
-// snowPeashooter
-var card_snowPeashooter = new Image()
-card_snowPeashooter.src = "./assets/cards/card_snowpea.png"
-var snowPeashooter = new Image()
-snowPeashooter.src = "./assets/snowPeaShooter/snowPeaShooter.png"
-plantVariety.push(snowPeashooter)
-
-// sunflower
-var card_sunflower = new Image()
-card_sunflower.src = "./assets/cards/card_sunflower.png"
-var sunflower = new Image()
-sunflower.src = "./assets/sunflower/sunflower.png"
-plantVariety.push(sunflower)
-
-var zombies = [];
-var totalZombies = 10
-var zombieCount = 0
-var zombieVariety = []
-
-// zombie normal
-var zombie_head = new Image()
-zombie_head.src = "./assets/zombie_normal/zombie_head.png"
-
-var zombie_normal = new Image()
-zombie_normal.src = "./assets/zombie_normal/zombie1.png"
-zombieVariety.push(zombie_normal)
-zombie_bucketHead = new Image()
-zombie_bucketHead.src = "./assets/bucketHeadZombie/bucketHeadZombie.png"
-zombieVariety.push(zombie_bucketHead)
-
-var zombiesWon = new Image()
-zombiesWon.src = "./assets/zombiesWin/ZombiesWon.png"
-var brainPlate = new Image()
-brainPlate.src = "./assets/zombiesWin/BrainOnAPlate.png"
-
-
-var peas = []
-var pea = new Image()
-pea.src = "./assets/pea.png"
-
-var snowPea = new Image()
-snowPea.src = "./assets/snowPea.png"
-
-var suns = []
-var sun = new Image()
-sun.src = "./assets/sun.png"
-
-var sunBoard = new Image()
-sunBoard.src = "./assets/sunboard.png"
-
-// audio
-var select = new Audio()
-select.src = 'assets/audio/click.mp3'
-
-var hover = new Audio()
-hover.src = 'assets/audio/hover.mp3'
-
-var plantation = new Audio()
-plantation.src = 'assets/audio/plantation.mp3'
-
-var puff = new Audio()
-puff.src = 'assets/audio/puff.mp3'
-
-var pea_shoot = new Audio()
-pea_shoot.src = 'assets/audio/pea_shoot.mp3'
-
-var pea_hit = new Audio()
-pea_hit.src = 'assets/audio/pea_hit.mp3'
-
-var zombie_fall = new Audio()
-zombie_fall.src = 'assets/audio/zombie_fall.mp3'
-
-var bucket_zombie_fall = new Audio()
-bucket_zombie_fall.src = 'assets/audio/bucket_zombie_fall.mp3'
-
-var zombie_groan = new Audio()
-zombie_groan.src = 'assets/audio/zombie_groan.mp3'
-
-var chomp = new Audio()
-chomp.src = 'assets/audio/chomp.mp3'
-
-var zombieFinalKill = new Audio()
-zombieFinalKill.src = 'assets/audio/zombieFinalKill.mp3'
-
-var introTheme = new Audio()
-introTheme.src = 'assets/audio/introTheme.mp3'
-
-var level_select = new Audio()
-level_select.src = 'assets/audio/level_select.mp3'
-
-var theme = new Audio()
-theme.src = 'assets/audio/theme.mp3'
-
-
-function hoverPlay(){
-    hover.play()
-}
-
-
 
 // event handlers
 
@@ -350,7 +174,6 @@ mainmenuBtn.addEventListener('click', function(){
 pauseBtn.addEventListener('click', function(){
     theme.pause()
     select.play()
-    // ctx2.clearRect(0,0,canvas.width, canvas.height)
     overlay.style.display = 'block'
     ctx2.shadowOffsetX = 10;
     ctx2.shadowOffsetY = 10;
@@ -378,7 +201,6 @@ keepPlayingBtn.addEventListener('click', function(){
     mainmenuBtn.id = 'invisible'
     gamePaused.id = 'invisible'
     surrenderMsg.id = 'invisible'
-    // zombieCount = 0
     window.requestAnimationFrame(loop);
 })
 
@@ -389,7 +211,6 @@ canvas.addEventListener('mousemove',function(e){
     mouseActivity.y = e.pageY - canvas.getBoundingClientRect().top 
 })
 
-// var mouseleave = document.addEventListener('mouseleave',function(e){
 canvas.addEventListener('mouseleave',function(e){
     e.preventDefault();
     mouseActivity[e.MouseHover] = false
@@ -399,7 +220,6 @@ canvas.addEventListener('mouseleave',function(e){
 
 canvas.addEventListener('mousedown',function(e){
     mouseActivity.clicked = true
-    console.log('m',mouseActivity.clicked)
 })
 
 canvas.addEventListener('mouseup',function(e){
@@ -437,11 +257,9 @@ canvas.addEventListener('click', function(e){
         endpointY = 730
     }
     if ((TotalsunValue >= sunVal) && posx > startpointX && posx < endpointX && posy >= startpointY  && posy < endpointY){
-        console.log('planted',posy,endpointY)
         plants.push(new Plant(posx, posy))
         plantation.play()
         TotalsunValue = TotalsunValue - sunVal
-        // console.log('okk',posx,posy,e.x,e.y)
     }
 
 })
@@ -463,7 +281,6 @@ function EachGrid(x, y){
 
 
 function createGrid(){
-        console.log('level',player.level)
         if(player.level == 1){
             var startpointY = gridSize * 3
             endpointY = 320
@@ -482,8 +299,8 @@ function createGrid(){
             }
         }
 }
-// createGrid()
 
+// createGrid()
 function drawBoard(){
     ctx.drawImage(sunBoard, 10 , 10 , 76, 85)
     ctx.fillStyle = 'black'
@@ -623,8 +440,6 @@ function Plant(x, y){
             ctx.drawImage(peashooter,this.frameStart * this.imgwidth, 0, this.imgwidth, this.imgheight, this.x , this.y + (this.height / 5), this.width / 1.5, this.height / 1.5)
             }
             else if(this.type == 1){
-            // ctx.fillStyle = 'black'
-            // ctx.fillRect(this.x, this.y, this.width, this.height)
             ctx.drawImage(sunflower,this.frameStart * this.imgwidth, 0, this.imgwidth, this.imgheight, this.x , this.y + (this.height / 5), this.width / 1.5, this.height / 1.5)
             }
             else if(this.type == 2){
@@ -700,8 +515,6 @@ function Zombie(y){
     this.dying = false
 
     this.draw = function(){
-        // ctx.fillStyle = 'black'
-        // ctx.fillRect(this.x, this.y, this.width, this.height)
         if(this.dying == true){
             ctx.drawImage(this.type,this.dieFrameStart * this.imgwidth, 0, this.imgwidth, this.imgheight, this.x - (this.width / 1.5), this.y - (this.height / 2), this.width * 1.5, this.height * 1.5)
             ctx.drawImage(zombie_head,(this.dieFrameStart - this.dieFrameConst) * 150, 0, 150, 186, this.x - (this.width / 1.5), this.y - (this.height / 2), this.width * 1.5, this.height * 1.5)
@@ -804,7 +617,6 @@ function Sun(x, y){
             }
         // groundTouchValue = Math.floor(Math.random() * 5 + 1) * gridSize
         groundTouchValue = lvl3_grid[Math.floor(Math.random() * lvl3_grid.length)]
-        console.log('kkkk',groundTouchValue)
         if (this.y == groundTouchValue || this.y > lvl3_grid[4]){
             this.velocity = 0
         }        
@@ -812,7 +624,7 @@ function Sun(x, y){
 }
 
 function showWinBoard(){
-    // ctx2.clearRect(0,0,canvas.width, canvas.height)
+    count = 0
     zombie_groan.play()
     player.playing = false
     overlay.style.display = 'block'
@@ -851,7 +663,6 @@ function loop(){
         count ++
         if(zombies.length == 0 && zombieCount >= zombieLimit){
             zombie_groan.play()
-            // ctx2.clearRect(0,0,canvas.width, canvas.height)
             overlay.style.display = 'block'
             ctx2.shadowOffsetX = 10;
             zombies = []
