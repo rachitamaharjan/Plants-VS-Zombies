@@ -183,7 +183,7 @@ body{
     left: calc(50% - 150px);
     /* top: 500px; */
     /* left: calc(50% + 10px); */
-    top: calc(50% + 150px);
+    top: calc(50% + 121px);
 }
 
 .btn-mainmenu{
@@ -209,7 +209,7 @@ body{
     width: 100px;
     position: absolute;
     left: calc(50% + 380px);
-    top: calc(50% + 180px);
+    top: calc(50% + 150px);
 }
 
 .btn-play{
@@ -251,7 +251,7 @@ body{
     width: 145px;
     position: absolute;
     left: calc(50% - 80px);
-    top: calc(50% - 360px);
+    top: calc(50% - 400px);
 }
 
 .htp-zombie{
@@ -264,7 +264,7 @@ body{
     width: 652px;
     position: absolute;
     left: calc(50% - 310px);
-    top: calc(50% - 415px);
+    top: calc(50% - 445px);
 }
 
 .btn-close{
@@ -276,7 +276,7 @@ body{
     width: 70px;
     position: absolute;
     left: calc(50% + 240px);
-    top: calc(50% - 210px);
+    top: calc(50% - 250px);
 }
 
 .btn-continue:hover{

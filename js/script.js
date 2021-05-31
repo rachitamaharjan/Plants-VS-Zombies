@@ -145,13 +145,13 @@ mainmenuBtn.addEventListener('click', function(){
     levelComplete.id = 'invisible'
     gamePaused.id = 'invisible'
     surrenderMsg.id = 'invisible'
-    if(mainmenuBtn.style.top == '438px'){
+    if(mainmenuBtn.style.top == ' 468px;'){
         mainmenuBtn.style.top = ' 500px'
         mainmenuBtn.style.height = '70px'
         mainmenuBtn.style.width = '170px'
     }
     else{
-        mainmenuBtn.style.top = '438px'
+        mainmenuBtn.style.top = ' 468px;'
         mainmenuBtn.style.height = '35px'
         mainmenuBtn.style.width = '145px'
     }
@@ -186,7 +186,7 @@ pauseBtn.addEventListener('click', function(){
     pauseBtn.id = 'invisible'
     levelComplete.id = 'invisible'
     surrenderMsg.id = 'invisible'
-    mainmenuBtn.style.top = '438px'
+    mainmenuBtn.style.top = ' 468px;'
     mainmenuBtn.style.height = '35px'
     mainmenuBtn.style.width = '145px'
     player.playing = false
@@ -637,7 +637,7 @@ function showWinBoard(){
     mainmenuBtn.id = 'visible'
     pauseBtn.id = 'invisible'
     gamePaused.id = 'invisible'
-    mainmenuBtn.style.top = '438px'
+    mainmenuBtn.style.top = ' 468px;'
     mainmenuBtn.style.height = '70px'
     mainmenuBtn.style.width = '170px'
 }
@@ -675,7 +675,7 @@ function loop(){
             continueBtn.id = 'visible'
             mainmenuBtn.id = 'visible'
             pauseBtn.id = 'invisible'
-            mainmenuBtn.style.top = '438px'
+            mainmenuBtn.style.top = ' 468px;'
             mainmenuBtn.style.height = '35px'
             mainmenuBtn.style.width = '145px'
             player.playing = false
